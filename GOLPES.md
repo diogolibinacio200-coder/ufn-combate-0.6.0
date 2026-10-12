@@ -1,4 +1,4 @@
-# Golpes — UFN Combate 0.5.0
+# Golpes — UFN Combate 0.6.0
 
 **A1 = leve · A2 = forte · A3 = chute · D = defesa.** D nesta notação é a ação de defesa, não a tecla D de movimento.
 
@@ -101,7 +101,7 @@ Complete a sequência direcional em até aproximadamente **300 ms**. Para as com
 - **A — Reclamação Explosiva:** explosão próxima que afasta o rival.
 - **B — Perdeu a Paciência:** investida fortalecida com irritação alta.
 - **C — Respira Nada:** usa irritação para fortalecer um próximo normal dentro de cinco segundos; exige irritação suficiente.
-- **Ultimate — Agora Chega!:** postura de contra-ataque. O golpe precisa ser provocado por um ataque válido durante a janela.
+- **Ultimate — Agora Chega!:** transformação vermelha e aproximação automática do adversário. Ao confirmar contato, executa 15 impactos, incluindo a finalização. Defesa, invulnerabilidade e interrupções continuam respeitadas.
 - **Kart — Grito:** choque nos corredores próximos.
 
 Defender e receber golpes alimentam a irritação. O bônus não equivale a cura.

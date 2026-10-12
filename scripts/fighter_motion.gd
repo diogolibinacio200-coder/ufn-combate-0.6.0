@@ -19,11 +19,10 @@ func update(f: Dictionary, delta: float) -> void:
 	var state = str(f.state)
 	var p = Vector2(float(f.x),float(f.y))
 	if not states.has(player) or states[player].identity != identity:
-		states[player] = {"identity":identity,"position":p,"phase":0.0,"clock":0.0,"state":state,"state_age":0.0,"landing":0.0,"frame":"","previous":"","blend_age":1.0,"pose":""}
+		states[player] = {"identity":identity,"position":p,"phase":0.0,"clock":0.0,"state":state,"state_age":0.0,"landing":0.0}
 	var s: Dictionary = states[player]
 	s.clock += delta
 	s.state_age += delta
-	s.blend_age += delta
 	s.landing = maxf(0.0,float(s.landing)-delta)
 	if s.position.y < 585 and p.y >= 589:
 		s.landing = .15
@@ -49,17 +48,9 @@ func sample(f: Dictionary, pose: String, t: float, progress: float) -> Dictionar
 	return {"gait":gait,"stride":(24.0 if running else (13.0 if backward else 19.0)) if moving else 0.0,"lift":(15.0 if running else (6.0 if backward else 10.0)) if moving else 0.0,"bob":absf(sin(gait))*3.5 if moving else sin(t*3.6+int(f.id)*.7)*1.1,"breath":sin(t*3.6+int(f.id)*.7)*.005 if state in ["idle","block","crouch_block","intro","entry","victory"] else 0.0,"recoil":sin(progress*PI)*4.5 if state=="attack" and not cinematic else 0.0,"landing":sin(float(s.get("landing",0.0))/.15*PI)*.055,"moving":moving,"backward":backward,"phase":phase,"pose":pose}
 
 func transition(f: Dictionary, frame: String, pose: String) -> Dictionary:
-	if bool(f.get("_cinematic",false)) or not states.has(int(f.get("player",0))):
-		return {"previous":frame,"mix":1.0}
-	var s: Dictionary = states[int(f.player)]
-	if s.frame != frame:
-		s.previous = s.frame if not str(s.frame).is_empty() else frame
-		s.frame = frame
-		s.blend_age = 0.0
-		s.pose = pose
-	# Attack contacts remain readable; locomotion/crouch use a longer dissolve.
-	var duration = .035 if str(f.state) in ["attack","hitstun","super_victim"] else .09
-	return {"previous":str(s.previous),"mix":smoothstep(0.0,duration,float(s.blend_age))}
+	# Kept for callers that inspect pose transitions. A whole frame stays opaque;
+	# gait, landing and breathing remain continuous in sample()/deform().
+	return {"previous":frame,"mix":1.0}
 
 static func deform(point: Vector2, motion: Dictionary) -> Vector2:
 	var local = point-ANCHOR

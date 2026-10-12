@@ -1,71 +1,64 @@
-# Validação — UFN Combate 0.5.0
+# Validação — UFN Combate 0.6.0
 
-Base: `UFN-Combate-v0.4.0-Codigo.zip`, obtido da pasta UFN Combate do Drive do autor. SHA-256: `1002a88c4cc04a0b968ba6203eb261ec88695fd6edcd8902f77f89d0492079cc`. A base foi importada, testada e registrada em commit local antes das alterações. [Registro anterior](QA-v040.md).
+Executada em 12/10/2026, Windows x64, Godot 4.7.2 stable, Compatibility/OpenGL e Intel Iris Xe. Base: repositório público 0.5.0, commit `6f20244e94a63065d9a2f7aebe78276948e3e458`. [Registro da 0.5.0](QA-v050.md).
 
-Validação em **07/10/2026**, Windows x64, **Godot 4.7.2 stable**. Testes de lógica sem janela; capturas e sessão nativa com Compatibility/OpenGL.
+## Resultados
 
-## Testes automáticos
+| Verificação | Condições verificadas | Falhas finais |
+|---|---:|---:|
+| 17 suítes existentes, com expectativas antigas de contra-ataque atualizadas | 3.460 | 0 |
+| Ultimates 0.6 | 1.825 | 0 |
+| Importação das referências | 917 | 0 |
+| Estabilidade determinística | 96 | 0 |
+| Renderização OpenGL real | 16.665 | 0 |
+| Sessão nativa isolada | 11 | 0 |
+| Executável e pacote exportado | 6 | 0 |
+| **Total** | **22.980** | **0** |
 
-**17 suítes, 3.460 verificações, zero falhas.** Importação e execuções concluídas com saída 0, sem `SCRIPT ERROR` ou `ERROR`. [Log completo](validation/v050/tests.txt).
+Contagens incluem verificações repetidas de metadados, quadros, combinações e estados. Não representam 22.980 funcionalidades ou partidas humanas independentes.
 
-| Suíte | Verificações |
-|---|---:|
-| Combate original | 195 |
-| Módulos auxiliares | 62 |
-| Áudio | 47 |
-| Defesa | 11 |
-| Dados | 12 |
-| Fluxos e modos | 32 |
-| Kart original | 26 |
-| Regressões v2 | 64 |
-| Release | 43 |
-| Polimento | 650 |
-| Torres | 500 |
-| Ultimates 0.5.0 | 949 |
-| Animações 0.5.0 | 328 |
-| Pilotos 0.5.0 | 442 |
-| Kart 0.5.0 | 53 |
-| Skins 0.5.0 | 23 |
-| Aliada 0.5.0 | 23 |
-| **Total** | **3.460** |
+- **Combate:** 192 combinações do Vitor contra todos os 16 IDs, jogadores 1/2, duas orientações e distâncias de 95/540/1100 px. Cobertura de perseguição, mudança de lado, cantos, alvo recuando, pulando, atacando ou se levantando; bloqueio/invulnerabilidade, interrupção e reinicialização. Quinze impactos e 280 de dano por sequência confirmada, com vermelho apenas no atacante.
+- **Robôs:** objetos com deslocamento e colisão, deduplicação do par no bloqueio, seis impactos com hurtbox real e 200 de dano. Transformação somente após a sequência, duração exata de 480 frames e retorno ao visual normal. Dano/alcance dos golpes voltam ao normal sem alterar os dados de base.
+- **Sprites:** 18 conjuntos de arte, todos os quadros, duas orientações, transições rápidas e invulnerabilidade; uma pose principal opaca por ator, atlas dentro dos limites, pixels presentes e leitura do resultado renderizado. Robôs visíveis conferidos nos seis momentos de impacto. Diogo e Mirkos inspecionados em folhas de 35 quadros por personagem, espelhados.
+- **Estabilidade:** 57.600 passos, equivalentes a 960 segundos simulados distribuídos pelo elenco. Entradas simultâneas, recursos limitados, coordenadas finitas e reinícios sem tint, captura ou projéteis pendurados. A suíte de ultimates também executa 12 sequências ao longo de 6.000 passos.
+- **Modos preservados:** testes existentes de Arcade, progressão, Torres, tutorial, seleção, controles, skins, aliada, áudio e Kart. A sessão nativa exerceu pausa, retorno, revanche, troca de lutadores, oito pilotos, divisão vertical/horizontal e retorno da corrida ao combate.
+- **Exportação:** o próprio `UFNCombate.exe` distribuído carregou o `.pck`, conferiu a versão, atlas/metadados da armadura, ultimate distante do Vitor, liberação de estados e transformação do Mirkos. O pacote usa o runtime oficial com assinatura Authenticode válida; o conteúdo do jogo não recebe uma assinatura separada.
 
-As contagens incluem combinações de personagens, lados e estados; não representam esse número de funcionalidades ou partidas humanas independentes.
+## Evidências
 
-- Ultimates: custo único, captura confirmada, defesa, aparo, erro, interrupção, KO, treino, reinício, tint temporário, congelamento do relógio, descarte de comandos e retorno ao controle. Os dois Vitors causam 280 de dano em 15 impactos; somente Vitor do Bem aplica o vermelho temporário, enquanto Vitor do Mal usa a coreografia das aliadas. Mirkos causa 200 em seis impactos, com armadura ao final da montagem e benefícios originais de oito segundos.
-- Animação: todos os 16 IDs de combate, sentidos de caminhada, apoio e elevação dos pés, aterrissagem, transições, atlas completos, limite de cache e simulação inalterada pelo desenho.
-- Pilotos: 14 personagens e skin do Diogo, mãos no volante, pernas no cockpit, direção, aceleração, boost, salto e impacto.
-- Skin: comparação de 600 frames entre os dois visuais de Diogo, incluindo ataques e Ultimate, hitboxes, seleção, troca, estatísticas e retomada da torre compartilhadas.
-- Kart: entradas simultâneas, frenagem, drift, itens, colisões, recuperação, checkpoints, rejeição de atalhos/ré/teleporte, FOV e obstáculos da câmera, limites dos efeitos e limpeza ao sair/reiniciar.
-- Aliada: transparência e atlas exclusivo, Maria preservada, elenco sem novo ID, manifestação e remoção do poder no Kart.
+[Lógica](validation/v060/tests.txt), [renderização](validation/v060/render.txt), [sessão isolada](validation/v060/session-isolated.txt), [exportação](validation/v060/export.txt) e [build](validation/v060/build.txt).
 
-A IA completou três voltas e 60 checkpoints legais em cada pista. Tempos de **simulação**: Campus 79,1 s; Vila Belga 71,4 s; Centro 85,5 s; Desafio 96,7 s; UFN/Andradas 71,7 s. Velocidade máxima observada entre 28,75 e 29,67, abaixo do limite de 31,8. Teste adicional cobre tráfego com oito pilotos.
+- [Diogo em defesa, nos dois sentidos](screens060/diogo_guard_both_sides.png).
+- [Mirkos com a nova skin](screens060/mirkos_new_skin_both_sides.png), [robôs em contato](screens060/mirkos_sequence_044.png) e [revelação da armadura](screens060/mirkos_sequence_143.png).
+- [Vitor vermelho como jogador 1](screens060/vitor_red_player1_049.png) e [jogador 2](screens060/vitor_red_player2_049.png).
+- 21 capturas atuais em `docs/screens060/`; referências, recortes e origem em [REFERENCIAS-0.6.0.md](REFERENCIAS-0.6.0.md).
 
-## Revisão visual
+## Ocorrência durante a validação
 
-Capturas reais da engine registram os 16 lutadores caminhando, duas fases da passada de Lorenzo, as duas Ultimates, a armadura de Mirkos, a aliada loira nos dois sentidos, a seleção de cinco pistas, o circuito urbano e a divisão de tela.
+A [primeira sessão nativa](validation/v060/session-concurrent.txt), executada junto a outras verificações, falhou apenas no limite de tempo após reiniciar o Kart horizontal. A mesma sessão foi repetida isoladamente, sem relaxar critérios: 11/11 aprovados, com 14,817 segundos de simulação em 15 segundos observados no trecho de reinício. Foram registrados 27 nós antes/depois e zero nós órfãos. O primeiro resultado foi preservado, não descartado.
 
-- [Pilotos e skin do Diogo](screens/v050/pilots.png).
-- [Lorenzo caminhando](screens/050_walk_10.png) e [passada alternada](screens/050_lorenzo_stride_b.png).
-- [Vitor do Mal e sua aliada](screens/050_ultimate_09_049.png); Vitor do Bem usa a sequência vermelha e não convoca a aliada.
-- [Robôs de Mirkos](screens/050_ultimate_04_044.png) e [montagem da armadura](screens/050_ultimate_04_131.png).
-- [Aliada: soco](screens/050_ally_punch1_both_sides.png), [chute](screens/050_ally_kick_both_sides.png), [guarda](screens/050_ally_counter_right.png).
-- [Seleção das pistas](screens/v050/kart_selection.png), [UFN/Andradas](screens/v050/andradas_overview.png) e [dois jogadores](screens/v050/andradas_split.png).
+Na sessão isolada de 96,16 segundos, a cadência mediana observada foi aproximadamente 28 FPS na luta e 18–20 FPS no Kart com duas câmeras, numa janela fora da tela e sem foco. Esse procedimento serve para estabilidade funcional; não prova 60 FPS nem mede uma partida em primeiro plano. A cadência baixa também foi registrada no histórico da base. Não se atribui sua causa exclusivamente às correções desta versão.
 
-Correções decorrentes da revisão: nariz do kart separado do agrupamento de primitivas para evitar desaparecimento; coroas orientadas para a frente; cabelo de Maria conectado; contornos UV da aliada excluem fragmentos vizinhos sem recortar os sapatos. Sequências temporárias não aumentaram o número de nós na captura repetida.
+O teste offline de referências usa leitura direta de imagens e emite avisos de que essa técnica não funciona em pacotes exportados. Ela está restrita aos importadores/testes, excluídos do executável. O renderer usa os recursos importados; a verificação do `.pck` confirma sua disponibilidade.
 
 ## Reprodução
 
 ```powershell
-./tools/test.ps1 -Godot 'C:/caminho/Godot_v4.7.2-stable_win64_console.exe'
+./tools/test.ps1 -Godot 'C:/caminho/Godot_v4.7.2-stable_win64_console.exe' -NativeRender
 ```
 
-Capturadores: `tests/capture_animation050.gd`, `tools/capture_drivers050.gd` e `tools/capture_kart050.gd`. `tests/session_test.gd` exercita sessão nativa com bots, pausa, revanche, troca de modos e Kart dividido na pista nova. Perfis de teste são separados do perfil normal.
+Para a sessão nativa, execute **sem outros testes gráficos concorrentes**:
 
-## Limites
+```text
+godot --path . --position -30000,-30000 --script tests/session_test.gd
+godot --path . --script tests/capture060.gd
+UFNCombate.exe --main-pack UFNCombate.pck --script C:/caminho/do/projeto/tools/export_smoke060.gd
+```
 
-- Não houve partida humana com dois controles físicos. Entradas simuladas não substituem essa verificação.
-- Animações de luta combinam poses existentes e deformação de malha; não são um conjunto completo de animações novas desenhadas quadro a quadro. A aliada loira tem atlas próprio.
-- Pilotos são interpretações 3D estilizadas das referências, não reproduções pixel a pixel. A pista é uma interpretação geográfica ajustada para corrida.
-- Capturas e testes de ciclo de vida não demonstram ausência de todo vazamento em sessões de várias horas. Balanceamento competitivo requer partidas humanas.
+Os testes de sessão/exportação usam perfis próprios, preservando o progresso normal. O importador pode ser repetido e gera os mesmos hashes dos atlases e metadados.
 
-[Notas da atualização](ATUALIZACAO-0.5.0.md) · [Arquitetura](TECHNICAL.md) · [Referências da pista](PISTA-UFN.md).
+## Limitações
+
+- Oito nomes de quadros da armadura reutilizam poses inteiras existentes, pois a referência não traz arte específica para dano, recuo e socos baixos/aéreos. A postura visual de soco baixo continua em pé; a lógica do golpe permanece baixa. Não foram inventadas novas imagens.
+- Não foram realizadas partidas humanas com dois controles físicos, ajuste competitivo de balanceamento ou sessões de várias horas.
+- Não se afirma ausência universal de bugs, nem 60 FPS garantidos. As correções principais foram verificadas nos cenários descritos.

@@ -1,0 +1,286 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Inicialização do Projeto (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Escaneando estrutura de arquivos...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Carregando nomes de classe globais...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verificando GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Criando scripts autoload...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Inicializando plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Iniciando escaneamento de arquivos...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registrando classes globais... (3 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Carregando editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Carregando layout do editor...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Carregando abas...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Inicialização do Projeto (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Escaneando estrutura de arquivos...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Carregando nomes de classe globais...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verificando GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Criando scripts autoload...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Inicializando plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Iniciando escaneamento de arquivos...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1msavepack[22m | Started Empacotando (102 steps)[39m[0m
+[   1% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/container.png-ab3f41fc257f6831fd69cbb00f339da5.ctex[39m[0m
+[   1% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/arenas/container.png.import[39m[0m
+[   1% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/corredor.png-859a10838fd9b01ea50756776e17ae4c.ctex[39m[0m
+[   1% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/arenas/corredor.png.import[39m[0m
+[   2% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/entrada.png-e9f4a0be4b20148f8e2dfd28553b4307.ctex[39m[0m
+[   2% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/arenas/entrada.png.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/laboratorio.png-329e77205a28e943ba6cdb606f873beb.ctex[39m[0m
+[   3% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/arenas/laboratorio.png.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/patio.png-ad074783a94f758d498700d0e6c70a65.ctex[39m[0m
+[   3% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/arenas/patio.png.import[39m[0m
+[   4% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/quadra.png-7777b007e83eabf23be9adcf564776a7.ctex[39m[0m
+[   4% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/arenas/quadra.png.import[39m[0m
+[   5% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/rua.png-1af9564e63485a2e72b1ab8338d73568.ctex[39m[0m
+[   5% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/arenas/rua.png.import[39m[0m
+[   6% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/vilabelga.png-14392c2dcbc2d4046bf9f863817ec1d8.ctex[39m[0m
+[   6% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/arenas/vilabelga.png.import[39m[0m
+[   6% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/block.wav-5527ba6f44185bcf4629256ee18a99e1.sample[39m[0m
+[   6% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/block.wav.import[39m[0m
+[   7% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/cancel.wav-98fadd4b25f8345c427119fd602dd771.sample[39m[0m
+[   7% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/cancel.wav.import[39m[0m
+[   8% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/confirm.wav-f384b89b03be0f4c54dea669aece985b.sample[39m[0m
+[   8% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/confirm.wav.import[39m[0m
+[   9% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/counter_hit.wav-f477ae2e5e12b97813ce514b52a880c3.sample[39m[0m
+[   9% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/counter_hit.wav.import[39m[0m
+[   9% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/footstep.wav-1bf931290d10f06d867c94e89a3de372.sample[39m[0m
+[   9% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/footstep.wav.import[39m[0m
+[  10% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/guard_break.wav-cfcf52d4cfff2e61630dec84b3f457ea.sample[39m[0m
+[  10% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/guard_break.wav.import[39m[0m
+[  11% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/hit.wav-96dc477cdf4a42f381370dba6e3f75ce.sample[39m[0m
+[  11% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/hit.wav.import[39m[0m
+[  12% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/hit_heavy.wav-4d32be43ae7b394c92bb36a4a24072c9.sample[39m[0m
+[  12% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/hit_heavy.wav.import[39m[0m
+[  12% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/jump.wav-7ea4d93114fa52c0b9979f6b2117f13f.sample[39m[0m
+[  12% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/jump.wav.import[39m[0m
+[  13% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/ko_impact.wav-0547810ecbed1cfd77765f7e025b2bbc.sample[39m[0m
+[  13% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/ko_impact.wav.import[39m[0m
+[  14% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_00.wav-7d10cacdaf9299087df08dbf4a58d004.sample[39m[0m
+[  14% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_00.wav.import[39m[0m
+[  15% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_01.wav-cc7cc9b8246500a9a58dd346dae93cd4.sample[39m[0m
+[  15% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_01.wav.import[39m[0m
+[  15% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_02.wav-f6992205c0f6e4cc2bc0706f158beb99.sample[39m[0m
+[  15% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_02.wav.import[39m[0m
+[  16% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_03.wav-e105ee36faaac42b9b310fa98a9bedf8.sample[39m[0m
+[  16% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_03.wav.import[39m[0m
+[  17% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_04.wav-3e199e6a6dc9cae9c9ee08dd23630214.sample[39m[0m
+[  17% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_04.wav.import[39m[0m
+[  18% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_05.wav-8bf963646d517a91a0d38089a051304a.sample[39m[0m
+[  18% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_05.wav.import[39m[0m
+[  18% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_06.wav-81a10c921bc94d2b160ba5511315d7fa.sample[39m[0m
+[  18% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_06.wav.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_07.wav-196ed6ea538de738f7faf69706a37b19.sample[39m[0m
+[  19% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_07.wav.import[39m[0m
+[  20% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_08.wav-8f081a5664f0fe7549c1570fde5a8795.sample[39m[0m
+[  20% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_08.wav.import[39m[0m
+[  21% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_arena_09.wav-9483a8b07c658e11102d418c9934c6ce.sample[39m[0m
+[  21% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_arena_09.wav.import[39m[0m
+[  21% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_menu.wav-edac82989e4ef867b59a3751a8df50d7.sample[39m[0m
+[  21% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_menu.wav.import[39m[0m
+[  22% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_selection.wav-498cc49470db80780a905412a20f49e1.sample[39m[0m
+[  22% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_selection.wav.import[39m[0m
+[  23% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_victory.wav-c9db59b314799e63189a5b8b6487bb1f.sample[39m[0m
+[  23% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_victory.wav.import[39m[0m
+[  24% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/music_vs.wav-8d4953e2dfe2030340162378cfcc9851.sample[39m[0m
+[  24% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/music_vs.wav.import[39m[0m
+[  24% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/parry.wav-fe9de3226f32ec87c32a07b214c891b4.sample[39m[0m
+[  24% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/parry.wav.import[39m[0m
+[  25% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/projectile.wav-d3419862318bda643ff98f9e6cf5c5cf.sample[39m[0m
+[  25% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/projectile.wav.import[39m[0m
+[  26% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/ready.wav-b90efe24faa05372f3b25ab2e0f1b3d9.sample[39m[0m
+[  26% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/ready.wav.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/select.wav-aed1a691d68aeb5e967d16e0e58699b8.sample[39m[0m
+[  27% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/select.wav.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/super.wav-2cf3af30dc8d8d9bb198420901be0086.sample[39m[0m
+[  27% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/super.wav.import[39m[0m
+[  28% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/victory.wav-d893d32ad919f27e15cf04d35e288b78.sample[39m[0m
+[  28% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/victory.wav.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_counter.wav-0a7fe4242c9faa9ea83a7a41cde8a6c3.sample[39m[0m
+[  29% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_counter.wav.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_fight.wav-fd7a98278efce7ed1b47b9645e1e5187.sample[39m[0m
+[  30% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_fight.wav.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_final_hit.wav-0a3576b9aeaded4b94df1224f9845f6c.sample[39m[0m
+[  30% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_final_hit.wav.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_final_round.wav-399173b9814cfba8aea808e2561a650f.sample[39m[0m
+[  31% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_final_round.wav.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_guard_break_voice.wav-24e48e90ecbc5af1c780d7d18f0f59dc.sample[39m[0m
+[  32% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_guard_break_voice.wav.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_ko.wav-cdba4f8203630d513521cfe699bda01c.sample[39m[0m
+[  33% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_ko.wav.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_perfect.wav-376d443b208150ba07e740bb22bf29d9.sample[39m[0m
+[  33% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_perfect.wav.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_player_one_wins.wav-250e3c0806a92901c77d6566c91731e8.sample[39m[0m
+[  33% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_player_one_wins.wav.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_player_two_wins.wav-7a5029cbea69917ebf3350acea3194b1.sample[39m[0m
+[  34% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_player_two_wins.wav.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_round_one.wav-792f6c8d3fbf819b8755862d32009f7e.sample[39m[0m
+[  35% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_round_one.wav.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/voice_round_two.wav-c892e72dc1f3554adb2a7ebb74fd8a0c.sample[39m[0m
+[  35% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/voice_round_two.wav.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/whoosh.wav-2141150448f9d7735080932a9eca4095.sample[39m[0m
+[  36% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/audio/whoosh.wav.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/Rajdhani-Bold.ttf-ea69f988f763daf406e34905eff3a731.fontdata[39m[0m
+[  37% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/fonts/Rajdhani-Bold.ttf.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/Rajdhani-Medium.ttf-e7603349f496e531180a2d200b37901a.fontdata[39m[0m
+[  38% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/fonts/Rajdhani-Medium.ttf.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/fonts/OFL.txt[39m[0m
+[  39% ] [90m[1msavepack[22m | Armazenando Arquivo: res://LICENSES.md[39m[0m
+[  40% ] [90m[1msavepack[22m | Armazenando Arquivo: res://BUILD-INFO.json[39m[0m
+[  41% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/arena_view.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/audio_manager.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/combat.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/fighter.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/fighter_motion.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/interface.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/input_manager.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart_appearance.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart_driver.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart_hud.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart_ufn_track.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/main.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/move_db.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/save_manager.gdc[39m[0m
+[  52% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/tower_view.gdc[39m[0m
+[  52% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-61e413b114cdd2beefbd5373c795a3dd.ctex[39m[0m
+[  52% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/andre/atlas.png.import[39m[0m
+[  53% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/andre/frames.json[39m[0m
+[  54% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-0d546d2cfd6b63cc3d135941b7f71940.ctex[39m[0m
+[  54% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/andre/portrait.png.import[39m[0m
+[  55% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-7b4de393cf5fa8f15492bcf72068abf9.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/arthur/atlas.png.import[39m[0m
+[  55% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/arthur/frames.json[39m[0m
+[  56% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-fcaa764b70cf96466e881e84e1c98e8a.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/arthur/portrait.png.import[39m[0m
+[  57% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-0f49d76217774fbd0cc1eb271ef9746a.ctex[39m[0m
+[  57% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/cristian/atlas.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/cristian/frames.json[39m[0m
+[  58% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-fdc89a11082e680698bb31db42092b1b.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/cristian/portrait.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-a9b2ec1039787e99a6aaa9a146335c12.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/diogo/atlas.png.import[39m[0m
+[  60% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/diogo/frames.json[39m[0m
+[  61% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-0e0c9644c2b0dac69652e12e5113b755.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/diogo/portrait.png.import[39m[0m
+[  61% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-d9c844e38b5ffcbc3d2dc4c3caf9f6db.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/diogo_alt/atlas.png.import[39m[0m
+[  62% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/diogo_alt/frames.json[39m[0m
+[  63% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-6c647cb8963cae09b1895b3ae042c117.ctex[39m[0m
+[  63% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/diogo_alt/portrait.png.import[39m[0m
+[  64% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-1ffeb38e47d599f826d816e539dce1cc.ctex[39m[0m
+[  64% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/fabiano/atlas.png.import[39m[0m
+[  64% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/fabiano/frames.json[39m[0m
+[  65% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-34b5ee5986c6c32a1f2513cb13348d4c.ctex[39m[0m
+[  65% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/fabiano/portrait.png.import[39m[0m
+[  66% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-e2ef0efc9b12fdf7cdff4a7f3018f26f.ctex[39m[0m
+[  66% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/felipe/atlas.png.import[39m[0m
+[  66% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/felipe/frames.json[39m[0m
+[  66% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-f180efeb6cc556ee7594b6031618e5ae.ctex[39m[0m
+[  66% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/felipe/portrait.png.import[39m[0m
+[  67% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-2e4c53183248fdeafcc4d6a490fd0e75.ctex[39m[0m
+[  67% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/fernando/atlas.png.import[39m[0m
+[  68% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/fernando/frames.json[39m[0m
+[  69% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-e52a9639b2927501e09ea6292070033c.ctex[39m[0m
+[  69% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/fernando/portrait.png.import[39m[0m
+[  69% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-b179d2a140246282a0679dfbf71179fb.ctex[39m[0m
+[  69% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/gabriel/atlas.png.import[39m[0m
+[  70% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/gabriel/frames.json[39m[0m
+[  71% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-2e2f8851c0c3c2b8007e2414fab57ea1.ctex[39m[0m
+[  71% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/gabriel/portrait.png.import[39m[0m
+[  72% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-3be4963a4d4fe2f53af4aa9913615e71.ctex[39m[0m
+[  72% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/kelvin/atlas.png.import[39m[0m
+[  72% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/kelvin/frames.json[39m[0m
+[  73% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-3e0b5aa80bd5c4e963e45fdd495cd014.ctex[39m[0m
+[  73% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/kelvin/portrait.png.import[39m[0m
+[  74% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-a68c40b3e013f052f6e1155c8b32588b.ctex[39m[0m
+[  74% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/leonardo/atlas.png.import[39m[0m
+[  75% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/leonardo/frames.json[39m[0m
+[  75% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-4b57f8336901d43593ce1c7a22cdfd43.ctex[39m[0m
+[  75% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/leonardo/portrait.png.import[39m[0m
+[  76% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-e8105a7b4b1e617a8ab1c8d3930a98bd.ctex[39m[0m
+[  76% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/lorenzo/atlas.png.import[39m[0m
+[  77% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/lorenzo/frames.json[39m[0m
+[  78% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-6c69c7818d1484afb9fe586ce0e66249.ctex[39m[0m
+[  78% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/lorenzo/portrait.png.import[39m[0m
+[  78% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-f5272f759ce66953856a2ee70bf93bc6.ctex[39m[0m
+[  78% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/maria/atlas.png.import[39m[0m
+[  79% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/maria/frames.json[39m[0m
+[  80% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-fb260af01b302fb48da44c7d505b5a47.ctex[39m[0m
+[  80% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/maria/portrait.png.import[39m[0m
+[  81% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-dde23f90cc672ea1c04f72b4b9367291.ctex[39m[0m
+[  81% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/mirkos/atlas.png.import[39m[0m
+[  81% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/mirkos/frames.json[39m[0m
+[  82% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-e9a3ce8d18f68fd01f457387c3c95944.ctex[39m[0m
+[  82% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/mirkos/portrait.png.import[39m[0m
+[  83% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-079154c5db632f9a41229b534370b597.ctex[39m[0m
+[  83% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/mirkos_armor/atlas.png.import[39m[0m
+[  84% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/mirkos_armor/frames.json[39m[0m
+[  84% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-e143020e026e65ead86f1c0123470d80.ctex[39m[0m
+[  84% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/mirkos_armor/portrait.png.import[39m[0m
+[  85% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-4b4ef8e08424ef82319d1dad0a3f65c7.ctex[39m[0m
+[  85% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/murilo/atlas.png.import[39m[0m
+[  86% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/murilo/frames.json[39m[0m
+[  87% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-4e085ed5902fcad7be33edb1ee9ca5a4.ctex[39m[0m
+[  87% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/murilo/portrait.png.import[39m[0m
+[  87% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-69ecb25757ec66c3f03258c0136509dc.ctex[39m[0m
+[  87% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/vitorbem/atlas.png.import[39m[0m
+[  88% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/vitorbem/frames.json[39m[0m
+[  89% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-176e3826ac48fc43ccb27322d86da2a3.ctex[39m[0m
+[  89% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/vitorbem/portrait.png.import[39m[0m
+[  90% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-52f2fc9a46baf7cf58a12ab3ed8281f0.ctex[39m[0m
+[  90% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/vitormal/atlas.png.import[39m[0m
+[  90% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/vitormal/frames.json[39m[0m
+[  91% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/portrait.png-d297001ebd73d87b3ac594c86626d7c2.ctex[39m[0m
+[  91% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/vitormal/portrait.png.import[39m[0m
+[  92% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/atlas.png-80b165f1271647eda7a7f9c74985dae5.ctex[39m[0m
+[  92% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/vitor_ally_blonde/atlas.png.import[39m[0m
+[  93% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/urso.png-151cdcd257bcf9e283b6638d767a602f.ctex[39m[0m
+[  93% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/sprites/urso.png.import[39m[0m
+[  93% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/icon.svg-56083ea2a1f1a4f1e49773bdc6d7826c.ctex[39m[0m
+[  93% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/icon.svg.import[39m[0m
+[  94% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/imported/ufn-logo.png-dbb41e7dc93c04df9cb0ded5c6bf8a00.ctex[39m[0m
+[  94% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/ufn-logo.png.import[39m[0m
+[  95% ] [90m[1msavepack[22m | Armazenando Arquivo: res://data/balance.json[39m[0m
+[  96% ] [90m[1msavepack[22m | Armazenando Arquivo: res://data/roster.json[39m[0m
+[  96% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/exported/133200997/export-3ad5c15c4f3250da0cc7c1af1770d85f-main.scn[39m[0m
+[  97% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/ai.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/ally_art.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/arena_view.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/audio_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/combat.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/fighter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/fighter_motion.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/interface.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/input_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart_appearance.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart_driver.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart_hud.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/kart_ufn_track.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/main.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/move_db.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/save_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/tower_view.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scenes/main.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/ai.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://scripts/ally_art.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/global_script_class_cache.cfg[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://assets/icon.svg[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://.godot/uid_cache.bin[39m[0m
+[  98% ] [90m[1msavepack[22m | Armazenando Arquivo: res://project.binary[39m[0m
+[92m[ DONE ][39m [1msavepack[22m
+[0m
+Build criada: C:\Users\diogo\Documents\Codex\2026-10-12\t\outputs\UFN-Combate-v0.6.0-Windows\UFNCombate.exe

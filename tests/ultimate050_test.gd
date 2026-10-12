@@ -196,8 +196,7 @@ func edge_cases(id:int,side:int) -> void:
 	check(c.fighters[1-side].hp==1000.0 and c.fighters[side].transform==0,"Reset prevents orphan damage and armor rewards")
 
 func confirmed_vitor_bem_red() -> void:
-	# Vitor do Bem keeps his original counter-ultimate trigger. The authored
-	# cinematic begins only after the opponent attacks into the counter window.
+	# 0.6 corrects the former counter-only trigger and colors Vitor himself.
 	var c=fresh(1,0,95.0)
 	var a:Dictionary=c.fighters[0]
 	var d:Dictionary=c.fighters[1]
@@ -211,14 +210,14 @@ func confirmed_vitor_bem_red() -> void:
 		c.tick([{},{}])
 		log.append_array(c.events.duplicate(true))
 		started=started or c.cinematic.active
-		tint_seen=tint_seen or d.ultimate_tint
+		tint_seen=tint_seen or a.ultimate_tint
 		if c.cinematic.active:
-			check(a.state=="super" and d.state=="super_victim","Vitor do Bem counter locks the cinematic actors")
-	check(started,"Vitor do Bem starts the authored red ultimate after a counter-hit")
+			check(a.state=="super" and d.state=="super_victim","Vitor do Bem locks the cinematic actors after a real contact")
+	check(started,"Vitor do Bem proactively starts the authored red ultimate")
 	check(is_equal_approx(d.hp,720.0),"Vitor do Bem red ultimate keeps the 280 damage budget")
 	check(log.filter(func(e):return e.type=="super_hit").size()==15,"Vitor do Bem red ultimate keeps fifteen authored impacts")
-	check(tint_seen,"Only Vitor do Bem applies the red capture feedback")
-	check(not c.cinematic.active and not d.ultimate_tint,"Vitor do Bem returns control and clears the red feedback")
+	check(tint_seen,"Vitor do Bem applies the red transformation to himself")
+	check(not c.cinematic.active and not d.ultimate_tint and not a.ultimate_tint,"Vitor do Bem returns control and clears the red feedback")
 
 func run() -> void:
 	confirmed_vitor_bem_red()

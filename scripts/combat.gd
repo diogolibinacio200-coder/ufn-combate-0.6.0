@@ -192,7 +192,12 @@ func _resolve_contacts(contacts: Array, inputs: Array) -> void:
 		if contact.move.kind == "throw":
 			if strikes.is_empty(): _begin_throw(a,d)
 		else:
-			_apply_hit(a,d,contact.move,inputs[1-contact.owner],false)
+			var accepted:bool=_apply_hit(a,d,contact.move,inputs[1-contact.owner],false)
+			if accepted and contact.move.kind=="rush_red" and not cinematic.active:
+				a.ultimate_tint=false
+				if a.state=="attack":
+					a.frame=int(a.move.startup)+int(a.move.active)
+					a.vel.x=0.0
 	_trade_contacts = false
 
 func _begin_throw(a: Dictionary, d: Dictionary) -> void:
@@ -208,6 +213,7 @@ func _begin_throw(a: Dictionary, d: Dictionary) -> void:
 	_event("throw_start",a.player,"AGARRÃO")
 
 func _start_cinematic(a: Dictionary, d: Dictionary, m: Dictionary) -> void:
+	d.ultimate_tint=false
 	if a.combo_timer <= 0 or d.state not in ["hitstun","guardbreak"]:
 		a.combo = 0
 		a.combo_damage = 0.0
@@ -216,9 +222,13 @@ func _start_cinematic(a: Dictionary, d: Dictionary, m: Dictionary) -> void:
 	if a.id in [1,4,9]:
 		var authored_vitor: bool = a.id in [1,9]
 		cinematic.merge({"duration":126 if authored_vitor else 144,"phase":"capture" if authored_vitor else "robots","phase_frame":0,"captured":true,"impact_pause":0,"last_impact":-100,"armor_duration":int(m.duration)},true)
-		# Red capture feedback belongs to Vitor do Bem; Vitor do Mal keeps
-		# the authored ally choreography without the red tint.
-		d.ultimate_tint = a.id==1
+		# The transformation belongs to the attacker, never the captured rival.
+		a.ultimate_tint = a.id==1
+		d.ultimate_tint = false
+		if a.id==1:
+			# Capture begins at a real hitbox contact. Keep the actors inside a
+			# punch's reach throughout the locked, contact-checked choreography.
+			a.x=clampf(d.x-a.face*100.0,90.0,1190.0)
 	a.state = "super"
 	d.state = "super_victim"
 	a.anim = "super"
@@ -280,6 +290,8 @@ func _tick_cinematic() -> void:
 		a.state = "idle"
 		a.anim = "idle"
 		a.move = {}
+		a.ultimate_tint=false
+		d.ultimate_tint=false
 		a.frame = 0
 		a.combo_timer = 55
 		a.cancel_count = 3
@@ -328,7 +340,15 @@ func _tick_signature_cinematic() -> void:
 		var index:int=strikes.find(frame)
 		var final_hit:bool=index==strikes.size()-1
 		var share:float=(0.14 if index==0 else 0.04) if vitor else 0.12
-		var damage:float=cinematic.damage_total-cinematic.damage_applied if final_hit else floorf(cinematic.damage_total*share)
+		var allocated:float=floorf(cinematic.damage_total*0.14)+13.0*floorf(cinematic.damage_total*0.04) if vitor else 5.0*floorf(cinematic.damage_total*0.12)
+		var damage:float=cinematic.damage_total-allocated if final_hit else floorf(cinematic.damage_total*share)
+		var strike_box:Rect2=_signature_strike_box(a,d,index)
+		# Captured actors cannot walk out, but every damage beat still passes
+		# through the same world-space hurtbox contract as the opening contact.
+		if not strike_box.intersects(Fighter.hurtbox(d)):
+			_event("super_miss",a.player,cinematic.name,{"pulse":index+1})
+			if frame>=cinematic.duration: _finish_signature_cinematic()
+			return
 		cinematic.damage_applied+=damage
 		cinematic.pulse=index+1
 		cinematic.last_impact=frame
@@ -344,7 +364,7 @@ func _tick_signature_cinematic() -> void:
 		if final_hit:
 			d.ultimate_tint=false
 			cinematic.captured=false
-		_event("super_hit",a.player,cinematic.name,{"target":d.player,"character":a.id,"damage":damage,"pulse":index+1,"final":final_hit,"phase":cinematic.phase,"x":d.x,"y":d.y-115.0})
+		_event("super_hit",a.player,cinematic.name,{"target":d.player,"character":a.id,"damage":damage,"pulse":index+1,"final":final_hit,"phase":cinematic.phase,"x":d.x,"y":d.y-115.0,"hitbox":strike_box})
 		_event("hit",a.player,cinematic.name,{"target":d.player,"damage":damage,"combo":a.combo,"x":d.x,"y":d.y-115.0,"silent_audio":true})
 		_event("combo",a.player,"%d ACERTOS"%a.combo,{"damage":a.combo_damage})
 	# The finishing displacement is bounded at the arena edge and continues
@@ -353,6 +373,17 @@ func _tick_signature_cinematic() -> void:
 		d.x=clampf(float(cinematic.origin_d)+a.face*(frame-111)*5.5,90.0,1190.0)
 	if frame>=cinematic.duration:
 		_finish_signature_cinematic()
+
+func _signature_strike_box(a: Dictionary,d: Dictionary,index: int) -> Rect2:
+	if a.id==1:
+		return Rect2(a.x+15.0 if a.face==1 else a.x-156.0,GROUND-214.0,141.0,185.0)
+	if a.id==4:
+		# The two robots alternate sides of the captured world-space target.
+		# Their punch origins stay fixed to the confirmed contact, not a HUD effect.
+		var robot_face:float=1.0 if index%2==0 else -1.0
+		var robot_x:float=float(cinematic.origin_d)-robot_face*76.0
+		return Rect2(robot_x if robot_face>0 else robot_x-108.0,GROUND-188.0,108.0,160.0)
+	return Fighter.hurtbox(d) # Existing ally choreography remains unchanged.
 
 func _equip_armor(f: Dictionary,duration: int) -> void:
 	f.transform=duration
@@ -466,6 +497,7 @@ func _update_fighter(f: Dictionary, other: Dictionary, inp: Dictionary) -> void:
 	f.guard_delay = maxi(0,f.guard_delay - 1)
 	f.overclock = maxi(0,f.overclock - 1)
 	f.transform = maxi(0,f.transform-1)
+	if f.state!="attack" or f.move.get("kind","")!="rush_red": f.ultimate_tint=false
 	f.dash_time = maxi(0,f.dash_time-1)
 	f.prepared = maxi(0,f.prepared-1)
 	f.feint_time = maxi(0,f.feint_time-1)
@@ -531,6 +563,7 @@ func _update_fighter(f: Dictionary, other: Dictionary, inp: Dictionary) -> void:
 				f.ammo = 6
 				_event("buff",f.player,"MUNIÇÃO RECARREGADA")
 			f.state = "idle" if f.y >= GROUND else "jump"
+			f.ultimate_tint=false
 			f.move = {}
 			f.frame = 0
 	if f.buffer_time > 0:
@@ -553,7 +586,13 @@ func _update_fighter(f: Dictionary, other: Dictionary, inp: Dictionary) -> void:
 			if grounded and dir != 0: _event("move",f.player)
 	elif f.state == "attack" and not f.move.is_empty():
 		var m: Dictionary = f.move
-		f.vel.x = m.speed * f.face if f.frame >= m.startup and f.frame < m.startup + m.active and m.kind in ["dash","slide","strike","uppercut","reload","rush_combo"] else f.vel.x * 0.8
+		if m.kind=="rush_red" and f.frame>=m.startup and f.frame<m.startup+m.active:
+			# Re-evaluate the live target every tick, including cross-ups. A bounded
+			# step stops before the pushbox, so corners cannot cause overshoot.
+			f.face=1 if other.x>=f.x else -1
+			f.vel.x=f.face*minf(float(m.speed),maxf(0.0,absf(other.x-f.x)-86.0))
+		else:
+			f.vel.x = m.speed * f.face if f.frame >= m.startup and f.frame < m.startup + m.active and m.kind in ["dash","slide","strike","uppercut","reload","rush_combo"] else f.vel.x * 0.8
 	_physics(f)
 	f.anim = f.state
 
@@ -711,6 +750,7 @@ func _start_move(f: Dictionary, source: Dictionary) -> void:
 	f.anim = "attack"
 	f.frame = 0
 	f.move = m
+	f.ultimate_tint=f.id==1 and m.kind=="rush_red"
 	f.hit_targets = []
 	f.hit_confirm = false
 	f.invuln = maxi(f.invuln,m.invuln)
@@ -723,7 +763,7 @@ func _start_move(f: Dictionary, source: Dictionary) -> void:
 		f.supers += 1
 		hitstop = maxi(hitstop,12)
 		_event("super",f.player,m.name,{"character":f.id})
-		if f.id in [4,9]: _event("ultimate_phase",f.player,m.name,{"character":f.id,"phase":"activation"})
+		if f.id in [1,4,9]: _event("ultimate_phase",f.player,m.name,{"character":f.id,"phase":"activation"})
 
 func _physics(f: Dictionary) -> void:
 	if f.roll_frames > 0:
@@ -781,6 +821,15 @@ func _process_move(f: Dictionary, other: Dictionary, contacts: Array) -> void:
 		if m.kind in ["robot_super","rush_combo","rush_red"]:
 			_event("ultimate_phase",f.player,m.name,{"character":f.id,"phase":"robots" if f.id==4 else "capture","target":other.player})
 		match m.kind:
+			"robot_super":
+				for lane in 2:
+					_spawn(f,m,"robot_strike",f.x+f.face*(52.0-lane*46.0),GROUND-105.0)
+					var robot:Dictionary=projectiles[-1]
+					robot.vel=Vector2(f.face*9.0,0.0)
+					robot.radius=32.0
+					robot.life=maxi(1,ceili((float(m.range)-(52.0-lane*46.0)-32.0)/9.0))
+					robot.attack_serial=f.attacks
+					robot.lane=lane
 			"projectile","jump_toss": _spawn(f,m,"projectile",f.x + f.face * 67.0,f.y - 112.0)
 			"reload":
 				f.move.reloading = true
@@ -833,8 +882,9 @@ func _process_move(f: Dictionary, other: Dictionary, contacts: Array) -> void:
 			"throw":
 				if absf((f.bear_x if f.id==13 else f.x)-other.x) <= m.range and Fighter.grounded(other) and other.invuln == 0 and other.stun == 0 and other.state not in ["throw","thrown"]:
 					contacts.append({"owner":f.player,"move":m.duplicate(true)})
-	if m.kind in ["projectile","trap","barrier","teleport","counter","buff","evade","throw","cloud","loop","sentry","drone","allies","reload","drink","transform","prepare","feint","jump_toss"]: return
+	if m.kind in ["robot_super","projectile","trap","barrier","teleport","counter","buff","evade","throw","cloud","loop","sentry","drone","allies","reload","drink","transform","prepare","feint","jump_toss"]: return
 	if f.hit_targets.has(other.player): return
+	if m.kind=="rush_red" and (other.invuln>0 or other.state in ["throw","thrown","knockdown","wakeup"]):return
 	if hitbox(f).intersects(Fighter.hurtbox(other)):
 		f.hit_targets.append(other.player)
 		contacts.append({"owner":f.player,"move":m.duplicate(true)})
@@ -854,6 +904,7 @@ func _apply_hit(a: Dictionary, d: Dictionary, m: Dictionary, inp: Dictionary, pr
 			_event("counter",d.player,counter_move.name+" · ABSORB",{"target":a.player,"damage":0.0})
 			return true
 		a.state = "hitstun"
+		a.ultimate_tint=false
 		a.stun = 29
 		a.frame = 0
 		a.hp = maxf(0.0,a.hp-counter_move.damage)
@@ -880,6 +931,7 @@ func _apply_hit(a: Dictionary, d: Dictionary, m: Dictionary, inp: Dictionary, pr
 			d.parries += 1
 			d.invuln = 7
 			a.state = "hitstun"
+			a.ultimate_tint=false
 			a.stun = 21
 			a.frame = 0
 			_meter(d,15)
@@ -941,6 +993,7 @@ func _apply_hit(a: Dictionary, d: Dictionary, m: Dictionary, inp: Dictionary, pr
 	d.state = "hitstun"
 	d.stun = maxi(8,int(m.hitstun) - (a.combo-1)*2 + (7 if counter else 0))
 	d.move = {}
+	d.ultimate_tint=false
 	d.vel.x = a.face * (m.push + a.combo * 0.35)
 	if m.pull > 0:
 		d.vel.x = -a.face * m.pull
@@ -1032,6 +1085,11 @@ func _spawn(f: Dictionary, m: Dictionary, kind: String, x: float, y: float) -> v
 
 func _update_projectiles(inputs: Array) -> void:
 	for p in projectiles.duplicate():
+		if p.kind=="robot_strike":
+			var owner:Dictionary=fighters[p.owner]
+			if owner.state!="attack" or owner.move.get("kind","")!="robot_super" or owner.attacks!=p.attack_serial:
+				p.dead=true
+				continue
 		p.life -= 1
 		p.age += 1
 		if p.age > p.move.setup_time:
@@ -1107,6 +1165,11 @@ func _update_projectiles(inputs: Array) -> void:
 				_event("parry",d.player,"REFLEXO ADAPTATIVO")
 			elif _apply_hit(fighters[p.owner],d,p.move,inputs[1-p.owner],true):
 				if cinematic.active: return
+				if p.kind=="robot_strike":
+					# One opening collision owns the sequence; a blocked pair cannot
+					# duplicate chip damage or leave a delayed hit after interruption.
+					for robot in projectiles:
+						if robot.kind=="robot_strike" and robot.owner==p.owner:robot.dead=true
 				if p.kind == "loop": p.next_hit = 1
 				else: p.dead = true
 	projectiles = projectiles.filter(func(p: Dictionary) -> bool: return not p.dead)

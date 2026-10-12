@@ -1,0 +1,23 @@
+{
+	"anchor": [
+		192,
+		304
+	],
+	"destination": [
+		128,
+		71
+	],
+	"frame": "guard",
+	"method": "Whole supplied pose; connected exterior background only; no body segmentation",
+	"size": [
+		129,
+		233
+	],
+	"source": "res://assets/references/060/diogo-main-source.jpeg",
+	"source_rect": [
+		500,
+		22,
+		136,
+		253
+	]
+}

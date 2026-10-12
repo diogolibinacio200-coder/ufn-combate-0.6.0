@@ -1,6 +1,6 @@
 # UFN Combate — Edição Campus
 
-**Versão 0.5.0 · Windows x64 · Godot 4.7.2**
+**Versão 0.6.0 · Windows x64 · Godot 4.7.2**
 
 Luta 2D com personagens da comunidade, cenários inspirados na UFN e em Santa Maria, e um modo de kart 3D para até dois jogadores locais.
 
@@ -10,12 +10,19 @@ Feito por Diogo Liberalesso Inácio. Para contato ou feedback, fale no Instagram
 
 ## Downloads
 
-### **[BAIXAR UFN COMBATE 0.5.0 NO GITHUB](https://github.com/diogolibinacio200-coder/ufn-combate-0.5.0/releases/tag/v0.5.0)**
+- **Windows x64:** [UFN-Combate-v0.6.0-Windows.zip](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/download/v0.6.0/UFN-Combate-v0.6.0-Windows.zip). Extraia e execute `UFNCombate.exe`, mantendo o `.pck` junto.
+- **Código completo:** [UFN-Combate-v0.6.0-Codigo.zip](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/download/v0.6.0/UFN-Combate-v0.6.0-Codigo.zip). Abra `project.godot` no Godot 4.7.2.
+- [Release, relatório e hashes](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/tag/v0.6.0).
 
-- **Windows x64:** [**Baixar UFN-Combate-v0.5.0-Windows.zip**](https://github.com/diogolibinacio200-coder/ufn-combate-0.5.0/releases/download/v0.5.0/UFN-Combate-v0.5.0-Windows.zip) — extraia e execute `UFNCombate.exe` mantendo `UFNCombate.pck` na mesma pasta.
-- **Código-fonte:** [**Baixar UFN-Combate-v0.5.0-Codigo.zip**](https://github.com/diogolibinacio200-coder/ufn-combate-0.5.0/releases/download/v0.5.0/UFN-Combate-v0.5.0-Codigo.zip) — projeto Godot 4.7.2 para editar e recompilar.
+## Atualização 0.6.0
 
-Os hashes SHA-256 estão em [SHA256-0.5.0.txt](SHA256-0.5.0.txt) e no [BUILD-INFO.json](BUILD-INFO.json).
+- Diogo: pose de defesa corrigida a partir da folha original fornecida pelo autor.
+- Mirkos: robôs com colisão e troca real para a skin de armadura da referência, com duração de oito segundos.
+- Vitor do Bem: ativação vermelha, aproximação automática e sequência de 15 impactos confirmados por contato.
+- Personagens: remoção da perda de opacidade durante mudanças de pose e da oscilação do corpo durante invulnerabilidade.
+- Base 0.5.0 preservada, incluindo Arcade, Torres, Kart, tutorial, elenco, skins e controles.
+
+[Relatório técnico](docs/ATUALIZACAO-0.6.0.md) · [Testes e limites da validação](docs/QA.md).
 
 ![Menu com demonstração automática](docs/screens/v030/attract_menu.png)
 
@@ -23,7 +30,7 @@ Os hashes SHA-256 estão em [SHA256-0.5.0.txt](SHA256-0.5.0.txt) e no [BUILD-INF
 
 Na distribuição Windows, extraia todo o ZIP e execute **UFNCombate.exe**. Mantenha **UFNCombate.exe** e **UFNCombate.pck** juntos na mesma pasta. Não é necessário instalar o editor Godot para jogar.
 
-A 0.5.0 evolui diretamente a base 0.4.0. Os controles, os modos e o formato de progresso existentes foram mantidos. Consulte [a validação desta atualização](docs/QA.md) para os testes e os detalhes do pacote. As capturas da 0.3.0 e da 0.4.0 preservadas neste README ilustram a história da base.
+A 0.6.0 evolui diretamente o repositório 0.5.0. Os controles, os modos e o formato de progresso existentes foram mantidos. Consulte [a validação desta atualização](docs/QA.md) para os testes e os detalhes do pacote. As capturas da 0.3.0 e da 0.4.0 preservadas neste README ilustram a história da base.
 
 No menu, navegue com W/S ou as setas e confirme com Enter ou A1. Escolha o modo, os personagens e o cenário. Esc volta ou abre a pausa. F11 alterna tela cheia.
 
@@ -137,7 +144,7 @@ Renderer Compatibility/OpenGL; interface base de 1280 × 720; simulação a 60 H
 ./tools/build.ps1 -Godot 'C:/caminho/Godot_v4.7.2-stable_win64_console.exe' -SignedRuntime 'C:/caminho/Godot_v4.7.2-stable_win64.exe'
 ```
 
-## Atualização 0.5.0
+## Histórico — atualização 0.5.0
 
 - **Vitor do Bem:** sua Ultimate de contra-ataque mantém o gatilho original e agora usa a sequência vermelha com captura, 15 impactos e golpe final com recuo. Dano total de 280 antes da redução de combos; o vermelho é feedback temporário do alvo.
 - **Vitor do Mal:** Rajada Sombria, com preparação, captura, 15 impactos e golpe final com recuo, acompanhada pela coreografia das aliadas. A sequência não aplica o feedback vermelho do Vitor do Bem.

@@ -48,12 +48,13 @@ func load_art() -> void:
 	bear_texture=load("res://assets/sprites/urso.png")
 	ally_texture=load(ALLY_ART.TEXTURE_PATH)
 	textures.clear()
-	for n in NAMES + ["diogo_alt"]:
+	for n in NAMES + ["diogo_alt", "mirkos_armor"]:
 		var base = "res://assets/sprites/"+n+"/"
 		if FileAccess.file_exists(base+"frames.json"):
 			sprite_data[n] = JSON.parse_string(FileAccess.get_file_as_string(base+"frames.json"))
 			sprite_atlas[n] = load(base+"atlas.png")
-			portrait_art[n] = load(base+"portrait.png")
+			if ResourceLoader.exists(base+"portrait.png"):
+				portrait_art[n] = load(base+"portrait.png")
 	for n in NAMES: textures.append(sprite_atlas.get(n))
 	backgrounds.clear()
 	for n in STAGE_FILES:
@@ -534,12 +535,17 @@ func draw_fighter(f: Dictionary,t: float,alt: bool = false) -> void:
 		pose=aliases.get(pose,pose)
 		if pos.y<580 and family=="normal":pose="airkick" if pose=="kick" else "airlight"
 		elif str(m.get("level",""))=="low" and family=="normal":pose="lowkick" if pose=="kick" else "lowlight"
+		if id==1 and str(m.get("kind",""))=="rush_red":
+			var pursuing=frame>=startup and frame<startup+active
+			pose="dash" if pursuing else "guard"
+			phase=fposmod(t*2.5,1.0) if pursuing else 0.0
 	# Fernando signals from behind the bear rather than performing its attack.
 	if id==13 and not m.is_empty():pose="guard" if progress<.2 else "victory"
 	if id in [11,12] and pose in ["specialA","specialB","ultimate"]:pose="light" if id==11 else "heavy"
 	if f.has("_pose_name"):pose=str(f._pose_name)
 	if f.has("_pose_phase"):phase=clampf(float(f._pose_phase),0,.999)
-	var skin="diogo_alt" if id==3 and int(f.get("skin",0))==1 else NAMES[id]
+	# The transformed atlas replaces the entire body, including attack poses.
+	var skin=skin_for(f)
 	if not sprite_data.has(skin):return
 	var data: Dictionary=sprite_data[skin]
 	var sequence: Array=data.animations.get(pose,data.animations.get("heavy",data.animations.idle) if pose=="uppercut" else data.animations.idle)
@@ -566,20 +572,20 @@ func draw_fighter(f: Dictionary,t: float,alt: bool = false) -> void:
 	if int(f.get("hit_flash",0))>0:tint=Color(1.7,1.45,1.2)
 	if bool(f.get("ultimate_tint",false)):tint=Color(1.0,.28,.34)
 	if f.has("_tint"):tint=f._tint
-	if int(f.get("invuln",0))>0:tint.a=.65+.25*sin(t*40)
+	# Invulnerability is signalled outside the silhouette, never by hiding it.
+	if int(f.get("invuln",0))>0:
+		_ellipse(Vector2(0,-3),Vector2(81,11),Color(c,.52),false,2)
 	var casting=not m.is_empty() and state in ["attack","super","counter"]
 	# Nature effects must not paint over the wrist/fist. Keep the original full
 	# frame in front of the effect, and anchor the vine to its actual hand socket.
 	if casting and id==3:_ufn_prop(f,pose,progress,t,skin,fn)
 	var movement=motion.sample(f,pose,t,progress)
-	var blend=motion.transition(f,fn,pose)
-	if float(blend.mix)<1.0 and str(blend.previous)!=fn:
-		_draw_motion_frame(skin,str(blend.previous),data,movement,Color(tint,tint.a*(1.0-float(blend.mix))))
-		_draw_motion_frame(skin,fn,data,movement,Color(tint,tint.a*float(blend.mix)))
-	else:
-		_draw_motion_frame(skin,fn,data,movement,tint)
+	# Cross-fading two transparent silhouettes is not an opaque dissolve:
+	# source-over compositing lost 25% opacity at their shared half-way point,
+	# and up to 50% at moving limbs. Use one complete frame per simulation pose.
+	# The continuous presentation mesh still supplies gait, breathing and landing.
+	_draw_motion_frame(skin,fn,data,movement,tint)
 	if casting and id!=3:_ufn_prop(f,pose,progress,t,skin,fn)
-	if int(f.get("transform",0))>0 and not bool(f.get("_hide_armor",false)):_ufn_mech(Vector2(0,-110),t,pose)
 	if int(f.get("prepared",0))>0 and state!="attack":_ufn_ball(Vector2(48,-32-absf(sin(t*6))*44),18,false,t)
 	draw_set_transform(_shake_offset)
 	if id==13 and not bool(f.get("_cinematic",false)):_draw_bear(f,t)
@@ -592,6 +598,12 @@ func draw_fighter(f: Dictionary,t: float,alt: bool = false) -> void:
 	if state not in ["ko","knockdown"] and not bool(f.get("_cinematic",false)):
 		draw_rect(Rect2(pos.x-14,pos.y-270,28,15),Color("003d7c") if int(f.get("player",0))==0 else Color("526e8d"))
 		draw_string(ThemeDB.fallback_font,Vector2(pos.x-9,pos.y-258),"J"+str(int(f.get("player",0))+1),HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color.WHITE)
+
+func skin_for(f: Dictionary) -> String:
+	var id=clampi(int(f.get("id",0)),0,NAMES.size()-1)
+	if id==4 and (int(f.get("transform",0))>0 or bool(f.get("_armor_skin",false))):
+		return "mirkos_armor"
+	return "diogo_alt" if id==3 and int(f.get("skin",0))==1 else NAMES[id]
 
 func _draw_motion_frame(skin: String, frame: String, data: Dictionary, movement: Dictionary, tint: Color) -> void:
 	var mesh=motion.make_mesh(skin,frame,data,sprite_atlas[skin],movement)
@@ -675,7 +687,6 @@ func _draw_super_sequence(sequence: Dictionary,t: float) -> void:
 			if beat>=4:
 				for i in range(8):_ufn_vine(Vector2(842,605),Vector2(842+cos(i*.8)*140,290+sin(i*2)*90),t,9)
 				for i in range(35):draw_circle(Vector2(840+sin(i*3.7)*155,310+cos(i*7.3)*110),10+i%4*3,Color(c,.5))
-		4:_ufn_mech(Vector2(440,450),t)
 		5:
 			a.x=630.0;a._pose_name="airkick" if beat>=4 else "kick";a.y=535.0 if beat>=4 else 590.0
 			_ufn_ball(Vector2(750+sin(t*14)*150,410+cos(t*14)*70),27,false,t)
@@ -711,7 +722,7 @@ func _cinema_actor(source: Dictionary, p: Vector2, frame: String, face: int = 1,
 	var actor = source.duplicate(true)
 	actor.x=p.x;actor.y=p.y;actor.face=face
 	actor.state="attack";actor.move={};actor.invuln=0;actor.hit_flash=0
-	actor._cinematic=true;actor._hide_armor=true
+	actor._cinematic=true
 	actor._frame_name=frame;actor._visual_scale=scale_factor
 	actor._visual_rotation=0.0
 	return actor
@@ -726,20 +737,16 @@ func _draw_mirkos_startup(f: Dictionary) -> void:
 			var spark=p-Vector2(0,135)+Vector2.from_angle(i*TAU/6+frame*.06)*(80-frame)
 			draw_rect(Rect2(spark,Vector2(4,4)),color)
 	elif frame<56:
-		# On miss/block, units still attempt the strike and visibly withdraw.
-		for i in 2:
-			var progress=smoothstep(27.0,36.0,frame)*(1.0-smoothstep(48.0,56.0,frame))
-			var robot=p+Vector2(float(f.face)*(110+i*85)*progress,-10.0*i)
-			_draw_combat_robot(robot,float(f.face),maxf(0,sin((frame-27)*.28-i)),time,progress)
+		# The travelling robots are drawn from their real collision objects.
+		_ring(p-Vector2(0,135),72,Color(color,.18),frame*.08,12)
 	elif frame<66:
 		for i in 7:
 			var q=(frame-56)/10.0
 			var part=p+Vector2(float(f.face)*(180+i*9)*(1-q),-70-i*17)
 			draw_rect(Rect2(part,Vector2(9,8)),color)
 	else:
-		for part in 6:
-			var q=clampf((frame-66.0)/18.0*1.6-part*.12,0,1)
-			if q>0:_armor_part(p,part,q,time)
+		var q=clampf((frame-66.0)/18.0,0,1)
+		_ring(p-Vector2(0,135),92,Color(color,.35*(1-q)),frame*.08,12)
 
 func _cinema_bars(title: String, subtitle: String, color: Color) -> void:
 	draw_set_transform(Vector2.ZERO)
@@ -776,8 +783,10 @@ func _draw_vitor_sequence(sequence: Dictionary, allies: bool = true) -> void:
 	var zoom=1.0+.07*smoothstep(12.0,34.0,float(frame))-.07*smoothstep(111.0,126.0,float(frame))
 	var sway=sin(t*2.8)*5.0
 	var target=Vector2(790+sway,590)
-	var a_pos=Vector2(560+sway,590)
-	if frame<24:a_pos.x=lerpf(425,563,smoothstep(0.0,18.0,float(frame)))
+	var a_pos=Vector2(595+sway,590)
+	# Contact already occurred in the simulation before this sequence starts.
+	# Keep the first hit and subsequent fists at the victim's near silhouette.
+	if frame<24:a_pos.x=lerpf(610,595,smoothstep(0.0,18.0,float(frame)))
 	else:a_pos.x+=hit*19
 	if finish:
 		a_pos.x=lerpf(610,565,smoothstep(111.0,126.0,float(frame)))
@@ -786,6 +795,10 @@ func _draw_vitor_sequence(sequence: Dictionary, allies: bool = true) -> void:
 	else:
 		target.x+=hit*7
 		target.y-=hit*(7 if hit_index%3 else 11)
+	var face=int(combat.fighters[int(sequence.attacker)].face)
+	if face<0:
+		a_pos.x=1280-a_pos.x
+		target.x=1280-target.x
 	draw_rect(Rect2(0,0,1280,720),Color(.007,.005,.028,.44))
 	var color=Color("d8a2ff") if allies else Color("ff4f5d")
 	_glow(Vector2(700,420),350,Color("7538bc") if allies else Color("8f1728"),.35)
@@ -795,39 +808,42 @@ func _draw_vitor_sequence(sequence: Dictionary, allies: bool = true) -> void:
 			var x=fposmod(float(frame)*31+i*137,1300)-120
 			draw_line(Vector2(x,y),Vector2(x+85,y-2),Color(color,.08),1.5)
 	var attack_frame="punch1"
-	if frame<12:attack_frame="guard"
+	if frame<7:attack_frame="punch2"
+	elif frame<12:attack_frame="guard"
 	elif frame<24:attack_frame="punch2"
 	elif frame<103:attack_frame=["punch1","punch2","punch0"][hit_index%3] if since<3 else "guard"
 	elif frame<110:attack_frame="guard"
 	else:attack_frame="punch2"
-	var a=_cinema_actor(combat.fighters[int(sequence.attacker)],a_pos,attack_frame,1,1.12*zoom)
+	var a=_cinema_actor(combat.fighters[int(sequence.attacker)],a_pos,attack_frame,face,1.12*zoom)
 	var victim_frame="guard" if hit_index%3==0 else "idle2"
-	var b=_cinema_actor(combat.fighters[int(sequence.defender)],target,victim_frame,-1,1.12*zoom)
-	b.ultimate_tint=frame<111
+	var b=_cinema_actor(combat.fighters[int(sequence.defender)],target,victim_frame,-face,1.12*zoom)
+	# The attacker transforms red from activation; capture does not tint the victim.
+	a.ultimate_tint=not allies
+	b.ultimate_tint=false
 	b._visual_rotation=(-.045-hit*.055) if not finish else -.2
 	if frame>=24 and frame<103:
 		for i in range(3,0,-1):
 			var ghost=a.duplicate(true)
-			ghost.x-=i*17;ghost.y+=i*2
+			ghost.x-=i*17*face;ghost.y+=i*2
 			ghost._frame_name=["punch0","punch1","punch2"][(hit_index+i)%3]
-			ghost._tint=Color(.57,.35,1,.08*(4-i))
+			ghost._tint=Color(.57,.35,1,.08*(4-i)) if allies else Color(1,.22,.3,.08*(4-i))
 			draw_fighter(ghost,t)
 	draw_fighter(b,t)
 	draw_fighter(a,t)
-	# The blonde ally is exclusive to Vitor do Mal. Vitor do Bem keeps the
-	# red capture feedback without borrowing the ally choreography.
+	# The blonde ally is exclusive to Vitor do Mal; the red attacker is do Bem.
 	if allies:
 		var ally_alpha=smoothstep(0.0,12.0,float(frame))*(1.0-smoothstep(117.0,126.0,float(frame)))
 		var ally_position=Vector2(lerpf(1140,995,smoothstep(0.0,24.0,float(frame))),590)
 		var ally_pose="windup" if frame<25 else (["punch0","punch1"][hit_index%2] if since<4 else "guard")
 		if finish:ally_pose="kick";ally_position.x+=smoothstep(111.0,126.0,float(frame))*90
-		_ufn_ally(ally_position,t,0,-1,ally_pose,ally_alpha)
-	var impact=Vector2(target.x-54,target.y-188+(hit_index%3)*5)
+		if face<0:ally_position.x=1280-ally_position.x
+		_ufn_ally(ally_position,t,0,-face,ally_pose,ally_alpha)
+	var impact=Vector2(target.x-face*54,target.y-188+(hit_index%3)*5)
 	if frame<103 or finish:_cinema_impact(impact,since,color,finish)
 	if frame>=25 and frame<103:
-		draw_arc(impact-Vector2(60,0),50+(hit_index%2)*15,-.65,.45,18,Color(color,.55*hit),3,true)
+		draw_arc(impact-Vector2(face*60,0),50+(hit_index%2)*15,-.65 if face>0 else PI-.45,.45 if face>0 else PI+.65,18,Color(color,.55*hit),3,true)
 	if frame>=103 and frame<111:
-		_glow(a_pos+Vector2(48,-140),34+float(frame-103)*4,color,.6)
+		_glow(a_pos+Vector2(face*48,-140),34+float(frame-103)*4,color,.6)
 	var title:String = "RAJADA SOMBRIA" if allies else "AGORA CHEGA!"
 	var fighter_name:String = "VITOR DO MAL" if allies else "VITOR DO BEM"
 	_cinema_bars(title, fighter_name+"  /  "+("IMPACTO FINAL" if finish else ("SEQUÊNCIA DE SOCOS" if frame>=25 else "CAPTURA")),color)
@@ -852,9 +868,9 @@ func _draw_combat_robot(p: Vector2, face: float, strike: float, t: float, alpha:
 	draw_circle(body,10,Color("102637"));draw_arc(body,9,0,TAU,14,steel,2);draw_circle(body,5,light)
 	for vent in 3:draw_line(body+Vector2(-8,14+vent*4),body+Vector2(8,14+vent*4),steel,1)
 	for side in [-1,1]:
-		var shoulder=body+Vector2(side*29,-17)
-		var elbow=shoulder+Vector2(face*(21+strike*23),20)
-		var fist=elbow+Vector2(face*(11+strike*42),-8-strike*16)
+		var shoulder=body+Vector2(side*face*29,-17)
+		var elbow=shoulder+Vector2(face*(21+strike*14),20)
+		var fist=elbow+Vector2(face*(11+strike*33),-8-strike*16)
 		if side==-1:fist=elbow+Vector2(-face*5,17)
 		draw_line(shoulder,elbow,Color("101d2e"),20);draw_line(shoulder,elbow,armor,15)
 		draw_line(elbow,fist,Color("101d2e"),16);draw_line(elbow,fist,steel,11)
@@ -883,36 +899,6 @@ func _tech_plate(rect: Rect2, color: Color) -> void:
 	for corner in [Vector2(6,7),Vector2(s.x-7,s.y-7)]:
 		draw_circle(p+corner,2,Color("adccd9"));draw_circle(p+corner,1,Color("254862"))
 
-func _armor_part(center: Vector2, index: int, progress: float, t: float, pose: String = "idle") -> void:
-	var offsets=[Vector2(-44,-166),Vector2(43,-166),Vector2(-30,-69),Vector2(30,-69),Vector2(0,-140),Vector2(0,-230)]
-	var sizes=[Vector2(35,38),Vector2(35,38),Vector2(26,73),Vector2(26,73),Vector2(62,68),Vector2(36,30)]
-	# Armor is attached to the fighter's presentation pose. Compact the torso
-	# during crouches and keep loose shin plates out of airborne silhouettes.
-	if pose in ["crouch","lowguard","lowkick","lowlight"]:
-		offsets[index].y *= .68
-		sizes[index].y *= .86
-	if pose in ["jump","fall","airkick","airlight"]:
-		if index in [2,3]:return
-		offsets[index].y = offsets[index].y*.78+18.0
-		sizes[index].y *= .82
-	var destination=center+offsets[index]
-	var start=center+Vector2((-1 if index%2==0 else 1)*(210+index*12),-110-index*26)
-	var p=start.lerp(destination,smoothstep(0.0,1.0,progress))
-	var size=sizes[index]
-	var color=Color("294e6c")
-	if progress<1:
-		draw_line(p,p+(start-destination).normalized()*22,Color(.45,.9,1,.3),2)
-		draw_arc(p,22,0,TAU,15,Color(.4,.85,1,.3),1)
-	if index!=5:
-		_tech_plate(Rect2(p-size*.5,size),color)
-		draw_line(p-Vector2(size.x*.29,2),p+Vector2(size.x*.29,2),Color("86ddeb"),2)
-	if index==4:
-		draw_circle(p,11,Color("112c45"));draw_circle(p,6,Color("76e9ff"))
-	if index==5:
-		# Open visor retains Mirkos' face while the helmet closes around it.
-		_poly([p+Vector2(-22,15),p+Vector2(-23,-15),p+Vector2(-13,-23),p+Vector2(15,-23),p+Vector2(23,-14),p+Vector2(22,14),p+Vector2(16,12),p+Vector2(15,-13),p+Vector2(-14,-13),p+Vector2(-16,15)],color)
-		draw_line(p+Vector2(-13,-19),p+Vector2(13,-19),Color("90e8f5"),2)
-
 func _draw_mirkos_sequence(sequence: Dictionary) -> void:
 	var frame=int(sequence.frame)
 	var t=float(frame)/60.0
@@ -934,37 +920,41 @@ func _draw_mirkos_sequence(sequence: Dictionary) -> void:
 		b_pos.x+=smoothstep(92.0,115.0,float(frame))*90
 		b_pos.y-=sin(clampf((frame-92.0)/25.0,0,1)*PI)*24
 	var a=_cinema_actor(combat.fighters[int(sequence.attacker)],a_pos,"intro" if frame<117 else "guard")
+	# The final reveal uses the exact transformed atlas, ahead of the simulation's
+	# persistent transform timer. No armor geometry is attached over the body.
+	a._armor_skin=frame>=140
 	var b=_cinema_actor(combat.fighters[int(sequence.defender)],b_pos,"idle2" if frame<110 else "kneel",-1)
 	b._visual_rotation=-hit*.09
 	draw_fighter(a,t)
 	draw_fighter(b,t)
 	if frame<104:
-		for robot in 3:
-			var enter=smoothstep(float(robot*3),float(12+robot*3),float(frame))
-			var origin=Vector2(540+robot*110,320-robot*24)
-			var target=Vector2(700+robot*87,590-robot%2*28)
+		for robot in 2:
+			var robot_face=1.0 if robot==0 else -1.0
+			var enter=smoothstep(float(robot*2),float(8+robot*2),float(frame))
+			# Match the two alternating origins used by _signature_strike_box.
+			var target=b_pos-Vector2(robot_face*76,0)
+			var origin=target+Vector2(-robot_face*135,-190)
 			var p=origin.lerp(target,enter)
-			if robot==2:p.x=1060;p.y=590
-			var this_hit=hit if index>=0 and index%3==robot else 0.0
-			p.x+=(-1 if robot==2 else 1)*this_hit*18
+			var this_hit=hit if index>=0 and index%2==robot else 0.0
 			_ring(p-Vector2(0,65),52,Color(c,.24*(1.0-enter)),t*3,8)
-			_draw_combat_robot(p,-1 if robot==2 else 1,this_hit,t)
-		if index>=0:_cinema_impact(b_pos+Vector2(0,-135+(index%2)*32),since,c,index==5)
+			_draw_combat_robot(p,robot_face,this_hit,t)
+		if index>=0:
+			var robot_face=1.0 if index%2==0 else -1.0
+			_cinema_impact(b_pos+Vector2(robot_face*32,-111),since,c,index==5)
 	elif frame<117:
 		var recall=clampf((frame-103.0)/14.0,0,1)
-		for part in 12:
-			var start=Vector2(730+part%3*120,390+part/3*42)
-			var finish=a_pos+Vector2(cos(part*.8)*100,-160+sin(part*.8)*68)
+		for robot in 2:
+			var robot_face=1.0 if robot==0 else -1.0
+			var start=b_pos-Vector2(robot_face*76,0)
+			var finish=start+Vector2(-robot_face*170,-800)
 			var p=start.lerp(finish,smoothstep(0.0,1.0,recall))
-			draw_line(p,p+Vector2(30,0),Color(c,.4),2)
-			draw_rect(Rect2(p-Vector2(9,7),Vector2(18,14)),Color("6b9eb7"))
-			_ring(p,13,Color(c,.45),t*7+part,4)
+			_draw_combat_robot(p,robot_face,0,t)
+			_beam(p+Vector2(0,-90),p+Vector2(0,35),c,4,(1-recall)*.5)
 	else:
 		var assembly=clampf((frame-117.0)/23.0,0,1)
-		for part in 6:
-			var progress=clampf(assembly*1.6-part*.12,0,1)
-			if progress>0:_armor_part(a_pos,part,progress,t)
 		_ring(a_pos-Vector2(0,122),103,Color(c,.45),-t*1.3,12)
+		var scan_y=lerpf(320,590,assembly)
+		draw_line(Vector2(a_pos.x-67,scan_y),Vector2(a_pos.x+67,scan_y),Color(c,.68*(1-assembly)),2)
 		_glow(a_pos-Vector2(0,132),170,c,.3*assembly)
 		if frame>=140:
 			_ellipse(a_pos,Vector2(85,12),Color(c,.8),false,2)
@@ -1023,6 +1013,9 @@ func draw_projectile(p: Dictionary,t: float) -> void:
 	var age=float(p.get("age",0))/60
 	var kind=str(p.get("kind",""))
 	var active=bool(p.get("active",true))
+	if kind=="robot_strike":
+		_draw_combat_robot(Vector2(pos.x,590),float(p.get("face",1)),maxf(0,sin(age*13)),t)
+		return
 	if int(p.get("delay",0))>0:
 		_ellipse(Vector2(pos.x,588),Vector2(68,10),Color(c,.6),false,2)
 		draw_string(ThemeDB.fallback_font,Vector2(pos.x-8,569),"!",HORIZONTAL_ALIGNMENT_LEFT,-1,26,c)
@@ -1201,11 +1194,6 @@ func _ufn_drone(p: Vector2,sentry: bool,t: float) -> void:
 			_ellipse(p+Vector2(side*35,-11),Vector2(22,4+sin(t*40)*2),Color("d5f1ff"),false,2)
 		_poly([p+Vector2(-20,-12),p+Vector2(23,-12),p+Vector2(29,8),p+Vector2(0,18),p+Vector2(-26,6)],Color("235175"))
 	draw_circle(p+Vector2(6,1),6,Color("75edff"));_glow(p,35,Color("6be8ff"),.22)
-
-func _ufn_mech(p: Vector2,t: float, pose: String = "idle") -> void:
-	var feet=p+Vector2(0,110)
-	for part in 6:_armor_part(feet,part,1.0,t,pose)
-	_glow(feet-Vector2(0,140),50,Color("83f1ff"),.16)
 
 func _ufn_ally(p: Vector2,t: float,variant: int,face: float=1,pose: String="",alpha: float=1.0) -> void:
 	if ally_texture==null or alpha<=0:return

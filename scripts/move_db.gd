@@ -131,6 +131,8 @@ func chain_normal(stage: int) -> Dictionary:
 		"chain_stage":stage})
 
 func super_move(id: int) -> Dictionary:
+	if id==1:
+		return move(ROSTER[1][3],"rush_red",280,16,112,36,132,100,{"family":"super","guard_damage":36.0,"chip":0.04,"hitstun":36,"height":185.0,"offset_y":-112.0,"visual":"rage","body_pose":"run","speed":11.0,"push":14.0})
 	if id==9:
 		return move(ROSTER[9][3],"rush_combo",280,22,8,36,185,100,{"family":"super","guard_damage":36.0,"chip":0.04,"hitstun":36,"height":170.0,"offset_y":-112.0,"visual":"rush","body_pose":"heavy","speed":6.5,"push":14.0})
 	if id==4:

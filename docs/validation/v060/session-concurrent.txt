@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 32.0.101.7085 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+SESSION native started 2026-10-12T14:24:38
+SESSION FPS fight_bear_kelvin {"frames":387,"median":27.27,"p05":21.82}
+SESSION PASS: Bots avançam combate nativo
+SESSION FPS fight_paused {"frames":38,"median":25.38,"p05":22.49}
+SESSION PASS: Pausa de luta congela relógio e simulação
+SESSION FPS fight_resumed {"frames":251,"median":27.0,"p05":23.3}
+SESSION PASS: Retomar devolve simulação ao combate
+SESSION PASS: Revanche recria a mesma partida sem vitórias herdadas
+SESSION FPS fight_rematch {"frames":213,"median":24.0,"p05":17.14}
+SESSION PASS: Troca de seleção registra os novos lutadores
+SESSION FPS menu_between_modes {"frames":48,"median":31.23,"p05":30.53}
+SESSION FPS kart_vertical {"frames":343,"median":16.92,"p05":11.06}
+SESSION PASS: Kart mantém oito pilotos e duas câmeras durante corrida
+SESSION FPS kart_paused {"frames":27,"median":17.14,"p05":14.06}
+SESSION PASS: Pausa do kart congela relógio e posição
+SESSION FPS kart_resumed {"frames":36,"median":13.85,"p05":11.67}
+SESSION PASS: Retomar kart restaura corrida
+SESSION FPS kart_horizontal_restart {"frames":206,"median":15.14,"p05":10.0}
+SESSION FAIL: Reinício reconstrói dois viewports horizontais
+SESSION FPS menu_after_kart {"frames":44,"median":28.24,"p05":27.34}
+SESSION PASS: Sair do kart libera mundo, câmeras e pilotos
+SESSION FPS fight_after_kart {"frames":244,"median":28.24,"p05":19.9}
+SESSION PASS: Combate continua após alternar kart e menus
+SESSION memory static start=50798362 end=81009242 nodes start=27.0 end=27.0 orphans=0.0
+SESSION complete duration_seconds=96.5 checks=11 failures=1

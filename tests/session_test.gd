@@ -104,6 +104,7 @@ func run():
 	app.kart.phase="race"
 	for racer in app.kart.racers:racer.human=false
 	await segment("kart_horizontal_restart",15.0)
+	print("SESSION restart diagnostics elapsed=",app.kart.elapsed," views=",app.kart.views.size()," horizontal=",app.kart.horizontal_split," phase=",app.kart.phase)
 	check(app.kart.views.size()==2 and app.kart.horizontal_split and app.kart.elapsed>14,"Reinício reconstrói dois viewports horizontais")
 	app._exit_kart()
 	await segment("menu_after_kart",2.0)

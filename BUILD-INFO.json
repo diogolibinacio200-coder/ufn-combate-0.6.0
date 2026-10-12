@@ -1,19 +1,18 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0",
   "engine": "Godot 4.7.2 stable",
-  "source_drive_archive": "UFN-Combate-v0.4.0-Codigo.zip",
-  "source_drive_sha256": "1002A88C4CC04A0B968BA6203EB261EC88695FD6EDCD8902F77F89D0492079CC",
-  "windows_runtime": "UFNCombate.exe",
-  "windows_runtime_sha256": "AB1824F85BFD8E0E4128182C000C4003A3E042245B2967848D089B2A04B22424",
-  "windows_runtime_signature": "Valid Authenticode signature inherited from the supplied 0.4.0 Windows executable",
-  "pck_sha256": "31AAF7CEC1818A8F52320D0475FD91345E68988720E5EAA1EC3702A05673B2B7",
-  "windows_zip_sha256": "DAF0C35A873655CBC4802974EA87738B0E214F962D688AAAB9F3724039DC7965",
-  "source_zip_sha256": "See SHA256-0.5.0.txt beside the release archives; omitted here because the source archive contains this metadata file.",
+  "date": "2026-10-12",
+  "source_repository": "https://github.com/diogolibinacio200-coder/ufn-combate-0.5.0",
+  "source_commit": "6f20244e94a63065d9a2f7aebe78276948e3e458",
+  "repository": "https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0",
+  "windows_runtime_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+  "windows_runtime_signature": "Valid Authenticode signature of official Godot runtime; project files are not separately signed",
+  "pck_sha256": "d58299cc86790edf54b6338ffdcc12e3ea1475bb63a5e0663d8eeccccbdb5445",
+  "windows_zip_sha256": "b17484581a4a87c9fda13878b5f43f6db29ee3e0a26a25cd8e76275fda84b778",
+  "source_zip_sha256": "See SHA256-0.6.0.txt beside the archives; not embedded in itself",
   "validation": "docs/QA.md",
-  "limitations": [
-    "Native Windows executable launch was not performed in this session; the PCK was exported and validated through Godot's resource import path.",
-    "Human play with two physical controllers remains a destination-machine check."
+  "limits": [
+    "8 armor frame aliases reuse whole poses from the supplied reference; no new poses invented",
+    "Two physical controllers, competitive balance and multi-hour human sessions not validated"
   ]
 }
-
-

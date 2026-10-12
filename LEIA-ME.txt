@@ -1,4 +1,4 @@
-UFN COMBATE — 0.5.0 — WINDOWS x64
+UFN COMBATE — 0.6.0 — WINDOWS x64
 Criado e desenvolvido por Diogo Liberalesso Inácio.
 
 Extraia todo o ZIP em uma pasta nova e execute UFNCombate.exe.
@@ -27,13 +27,17 @@ Cinco pistas: Campus, Vila Belga, Centro, Desafio Universitário e UFN / Andrada
 A pista nova está disponível na corrida rápida e no contrarrelógio.
 O campeonato preserva suas quatro etapas clássicas.
 
+Vitor do Bem: transformação vermelha, aproximação automática e 15 impactos.
+Diogo: pose de defesa recuperada da referência original.
+Transições dos personagens mantêm opacidade estável.
+
 Vitor do Mal: Rajada Sombria, sequência de socos e golpe final.
-Mirkos: ataque de robôs, recolhimento e formação da armadura.
+Mirkos: ataque de robôs, recolhimento e troca para a nova skin de armadura por oito segundos.
 A nova aliada loira pertence aos poderes de Vitor; Maria continua jogável.
 Diogo Careca permanece uma skin do Diogo, com os mesmos golpes e progresso.
 
-Esta atualização parte da versão 0.4.0 e preserva os modos existentes.
+Esta atualização parte da versão 0.5.0 e preserva os modos existentes.
 Detalhes dos testes, capturas e pacote entregue: docs/QA.md.
 
-Novidades: docs/ATUALIZACAO-0.5.0.md. Pista: docs/PISTA-UFN.md.
+Novidades: docs/ATUALIZACAO-0.6.0.md. Pista: docs/PISTA-UFN.md.
 Golpes: GOLPES.md. Créditos/licenças: LICENSES.md.

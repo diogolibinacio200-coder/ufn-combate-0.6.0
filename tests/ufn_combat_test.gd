@@ -122,17 +122,17 @@ func run() -> void:
  c = fresh(1,0)
  c.fighters[0].meter=100
  c.tick([{"block":true,"heavy":true,"heavy_pressed":true},{}])
- frames(c,115)
- check(c.fighters[1].hp==1000 and c.fighters[0].meter<5,"Ultimate de Vitor exige contra-ataque e perde energia ao errar")
+ frames(c,240)
+ check(c.fighters[1].hp==720 and c.fighters[0].meter==6,"Ultimate de Vitor atinge adversário parado e consome a barra")
  c = fresh(1,0)
  c.fighters[0].meter=100
  c.tick([{"block":true,"heavy":true,"heavy_pressed":true},{}])
  frames(c,22)
  c.tick([{}, {"attack":true,"attack_pressed":true}])
  frames(c,18)
- check(c.cinematic.active,"Ultimate de Vitor reage a golpe dentro da janela")
+ check(c.cinematic.active,"Ultimate de Vitor confirma contato contra adversário em ataque")
  frames(c,220)
- check(c.fighters[1].hp==720,"Contra-ataque ultimate aplica dano exato")
+ check(c.fighters[1].hp==720,"Sequência proativa de Vitor aplica dano exato")
  for id in [0,2,3,5,6,7,8,9]:
   c=fresh(id,0 if id !=0 else 3)
   c.fighters[0].meter=100

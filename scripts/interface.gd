@@ -601,7 +601,7 @@ func draw_kart_stage() -> void:
 		tx(app.KART_TRACKS[i],x+14,y+181,22,GOLD if app.stage_cursor==i else WHITE)
 	tx("UFN / ANDRADAS",865,454,26,GOLD)
 	wrap_text("Um circuito urbano ao redor do Conjunto II, em Santa Maria.",865,490,325,23,MUTED,29)
-	tx("0.5.0  /  EDIÇÃO CAMPUS",865,592,18,MUTED)
+	tx("0.6.0  /  EDIÇÃO CAMPUS",865,592,18,MUTED)
 	footer("SELEÇÃO","CORRER")
 
 func draw_setup() -> void:
