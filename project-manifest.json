@@ -1,0 +1,16 @@
+{
+  "version": "0.6.0",
+  "archive_sha256": "4f500ef518a7f383b85b55dde80868b73d5003a8fd8412483d49792a24691dcb",
+  "parts": [
+    {
+      "name": "project-part-000.bin",
+      "size": 20971520,
+      "sha256": "95a010aae33d29bed171def7918ee3f670faac38393955189ea75f9f0ac89abb"
+    },
+    {
+      "name": "project-part-001.bin",
+      "size": 13986622,
+      "sha256": "233f41693502660562546a7453f11f22abcf9c2cb3b7efecd24d8e43830317f7"
+    }
+  ]
+}
