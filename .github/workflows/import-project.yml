@@ -58,4 +58,3 @@ jobs:
             git commit -m 'Publicar UFN Combate 0.6.0: projeto, recursos e testes'
             git push
           fi
-
