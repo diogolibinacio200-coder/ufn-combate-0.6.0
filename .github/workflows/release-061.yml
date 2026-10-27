@@ -1,0 +1,68 @@
+name: Publicar versão 6.1 com Clarissa
+on:
+  push:
+    branches: ['feat/0.6.1-clarissa']
+    paths: ['.github/workflows/release-061.yml']
+permissions:
+  contents: write
+concurrency:
+  group: release-v0.6.1
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Godot 4.5.1 e templates oficiais
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.5.1-stable/Godot_v4.5.1-stable_linux.x86_64.zip
+          curl --fail --location --retry 3 -o /tmp/templates.tpz https://github.com/godotengine/godot/releases/download/4.5.1-stable/Godot_v4.5.1-stable_export_templates.tpz
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.5.1-stable_linux.x86_64
+          mkdir -p ~/.local/share/godot/export_templates/4.5.1.stable
+          unzip -q /tmp/templates.tpz -d /tmp/godot-templates
+          cp /tmp/godot-templates/templates/* ~/.local/share/godot/export_templates/4.5.1.stable/
+      - name: Validar Clarissa e exportar Windows
+        shell: bash
+        run: |
+          set -euo pipefail
+          GODOT=/tmp/godot/Godot_v4.5.1-stable_linux.x86_64
+          "$GODOT" --headless --editor --path . --import
+          "$GODOT" --headless --path . --script tests/clarissa061_test.gd
+          "$GODOT" --headless --path . --script tests/clarissa061_flow_test.gd
+          mkdir -p dist/windows
+          "$GODOT" --headless --path . --export-release "Windows Desktop" "$PWD/dist/windows/UFNCombate.exe"
+          test -s dist/windows/UFNCombate.exe
+          cp docs/ATUALIZACAO-0.6.1.md dist/windows/NOTAS-0.6.1.md
+          printf '%s\n' 'UFN COMBATE — VERSÃO 6.1 (v0.6.1) — CLARISSA' 'Extraia o ZIP e execute UFNCombate.exe. O pacote está embutido no executável.' 'Exportado com Godot 4.5.1. Execução em Windows ainda não validada neste ambiente.' > dist/windows/LEIA-ME.txt
+          (cd dist/windows && zip -q -9 ../UFN-Combate-v0.6.1-Windows.zip *)
+          git archive --format=zip --prefix=UFN-Combate-v0.6.1/ HEAD -o dist/UFN-Combate-v0.6.1-Codigo.zip
+          (cd dist && sha256sum UFN-Combate-v0.6.1-*.zip > SHA256SUMS.txt)
+      - name: Publicar download da versão 6.1
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > dist/release-notes.md <<'NOTES'
+          # UFN Combate — VERSÃO 6.1 (v0.6.1) — CLARISSA
+
+          **Nova versão com Clarissa jogável e poderes de Beach Tennis.**
+
+          ## Download para jogar
+          Baixe **UFN-Combate-v0.6.1-Windows.zip** nos arquivos abaixo, extraia e execute **UFNCombate.exe**. Não precisa instalar o Godot; o pacote está embutido no executável.
+
+          ## Novidades
+          - Clarissa adicionada ao elenco, preservando os personagens e o progresso existentes.
+          - Saque teleguiado, chuva de bolinhas, rede, voleio, smash e Ultimate.
+          - Integração aos modos de luta, seleção e Kart.
+
+          **6.1 é o nome destacado desta atualização; a versão técnica é v0.6.1.**
+          Código-fonte disponível em **UFN-Combate-v0.6.1-Codigo.zip** e verificações em **SHA256SUMS.txt**.
+
+          Build exportado com Godot 4.5.1. Testes automatizados de Clarissa executados no Linux; execução em Windows, controles físicos e balanceamento prolongado ainda não validados. Consulte docs/ATUALIZACAO-0.6.1.md para detalhes.
+          NOTES
+          gh release create v0.6.1 dist/UFN-Combate-v0.6.1-Windows.zip dist/UFN-Combate-v0.6.1-Codigo.zip dist/SHA256SUMS.txt --target "$GITHUB_SHA" --title "Versão 6.1 — Clarissa (v0.6.1)" --notes-file dist/release-notes.md --latest
