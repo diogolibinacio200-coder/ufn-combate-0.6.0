@@ -1,8 +1,14 @@
 # UFN Combate — Edição Campus
 
-**Versão 0.6.1 · Clarissa / Beach Tennis**
+## VERSÃO 6.1 — CLARISSA (v0.6.1-fix1)
 
-Nova personagem jogável, saques, chuva de bolinhas, rede, voleio, smash e Ultimate com contato confirmado. [Notas, comandos e testes da 0.6.1](docs/ATUALIZACAO-0.6.1.md). Exportação validada com Godot 4.5.1; os downloads abaixo continuam sendo da versão estável 0.6.0.
+**[⬇ BAIXAR VERSÃO 6.1 PARA WINDOWS](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/download/v0.6.1-fix1/UFN-Combate-v0.6.1-fix1-Windows.zip)**
+
+A versão 6.1 usa o identificador técnico **v0.6.1-fix1**.
+
+**Correção incluída:** tamanho do Smash de Clarissa ajustado para manter a proporção dos demais personagens.
+
+Nova personagem jogável, saques, chuva de bolinhas, rede, voleio, smash e Ultimate com contato confirmado. [Notas, comandos e testes da 0.6.1](docs/ATUALIZACAO-0.6.1.md). Exportação com Godot 4.5.1. Extraia o ZIP e execute **UFNCombate.exe**; o pacote está embutido no executável.
 
 ![Clarissa na seleção](docs/screens/v061/selection.png)
 
@@ -12,11 +18,13 @@ Luta 2D com personagens da comunidade, cenários inspirados na UFN e em Santa Ma
 
 Feito por Diogo Liberalesso Inácio. Para contato ou feedback, fale no Instagram [@diogok_i](https://www.instagram.com/diogok_i/) ou pelo e-mail [diogolib.inacio200@gmail.com](mailto:diogolib.inacio200@gmail.com)!
 
-## Downloads
+## Downloads — versão 6.1 (v0.6.1-fix1)
 
-- **Windows x64:** [UFN-Combate-v0.6.0-Windows.zip](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/download/v0.6.0/UFN-Combate-v0.6.0-Windows.zip). Extraia e execute `UFNCombate.exe`, mantendo o `.pck` junto.
-- **Código completo:** [UFN-Combate-v0.6.0-Codigo.zip](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/download/v0.6.0/UFN-Combate-v0.6.0-Codigo.zip). Abra `project.godot` no Godot 4.7.2.
-- [Release, relatório e hashes](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/tag/v0.6.0).
+- **[JOGAR NO WINDOWS — VERSÃO 6.1 COM CLARISSA](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/download/v0.6.1-fix1/UFN-Combate-v0.6.1-fix1-Windows.zip)** — extraia e execute `UFNCombate.exe`.
+- [Código completo da versão 6.1](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/download/v0.6.1-fix1/UFN-Combate-v0.6.1-fix1-Codigo.zip) — projeto exportado com Godot 4.5.1.
+- [Release 6.1, novidades e hashes SHA-256](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/tag/v0.6.1-fix1).
+
+**Versão anterior:** [downloads da 0.6.0](https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0/releases/tag/v0.6.0).
 
 ## Atualização 0.6.0
 
@@ -32,7 +40,7 @@ Feito por Diogo Liberalesso Inácio. Para contato ou feedback, fale no Instagram
 
 ## Jogar no Windows
 
-Na distribuição Windows, extraia todo o ZIP e execute **UFNCombate.exe**. Mantenha **UFNCombate.exe** e **UFNCombate.pck** juntos na mesma pasta. Não é necessário instalar o editor Godot para jogar.
+Na distribuição Windows, extraia todo o ZIP e execute **UFNCombate.exe**. Na versão 6.1 (v0.6.1-fix1), o pacote está embutido no executável. Não é necessário instalar o editor Godot para jogar.
 
 A 0.6.0 evolui diretamente o repositório 0.5.0. Os controles, os modos e o formato de progresso existentes foram mantidos. Consulte [a validação desta atualização](docs/QA.md) para os testes e os detalhes do pacote. As capturas da 0.3.0 e da 0.4.0 preservadas neste README ilustram a história da base.
 

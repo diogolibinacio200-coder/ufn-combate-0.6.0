@@ -34,6 +34,6 @@ func _initialize() -> void:
 	atlas.save_png("res://assets/sprites/clarissa/atlas.png")
 	atlas.get_region(Rect2i(0,0,384,320)).save_png("res://assets/sprites/clarissa/portrait.png")
 	var f=FileAccess.open("res://assets/sprites/clarissa/frames.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"frames":frames,"animations":anim,"anchor":[192,304]},"\t"))
+	f.store_string(JSON.stringify({"frames":frames,"animations":anim,"anchor":[192,304],"frame_scales":{"smash":0.8}},"\t"))
 	print("Clarissa atlas packed; original generated alpha preserved")
 	quit()
