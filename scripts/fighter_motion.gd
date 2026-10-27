@@ -78,7 +78,9 @@ func make_mesh(key: String, frame: String, data: Dictionary, texture: Texture2D,
 	var source: Dictionary = topology[cache_key]
 	var vertices = PackedVector3Array()
 	for point in source.points:
-		var p = deform(point,motion)
+		# Per-pose art normalization around the common foot anchor.
+		# This only changes presentation; combat geometry stays unchanged.
+		var p = deform(point,motion)*float(data.get("frame_scales",{}).get(frame,1.0))
 		vertices.append(Vector3(p.x,p.y,0))
 	var arrays = []
 	arrays.resize(Mesh.ARRAY_MAX)
