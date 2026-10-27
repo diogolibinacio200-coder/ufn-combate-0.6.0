@@ -1,0 +1,262 @@
+{
+	"anchor": [
+		192,
+		304
+	],
+	"animations": {
+		"airheavy": [
+			"upper",
+			"smash",
+			"guard"
+		],
+		"airkick": [
+			"jump0",
+			"jump1",
+			"guard"
+		],
+		"airlight": [
+			"punch0",
+			"punch1",
+			"guard"
+		],
+		"backdash": [
+			"walk0",
+			"dash",
+			"walk1"
+		],
+		"backwalk": [
+			"walk1",
+			"guard",
+			"walk0",
+			"idle0"
+		],
+		"block": [
+			"guard"
+		],
+		"crouch": [
+			"crouch"
+		],
+		"dash": [
+			"walk0",
+			"dash",
+			"walk1"
+		],
+		"defeat": [
+			"down"
+		],
+		"down": [
+			"down"
+		],
+		"fall": [
+			"jump1",
+			"crouch"
+		],
+		"grab": [
+			"punch0",
+			"punch1",
+			"guard"
+		],
+		"guard": [
+			"guard"
+		],
+		"heavy": [
+			"upper",
+			"smash",
+			"guard"
+		],
+		"hurt": [
+			"hurt"
+		],
+		"idle": [
+			"idle0",
+			"guard",
+			"idle0"
+		],
+		"intro": [
+			"guard",
+			"idle0"
+		],
+		"jump": [
+			"jump0",
+			"jump1"
+		],
+		"kick": [
+			"jump0",
+			"jump1",
+			"guard"
+		],
+		"land": [
+			"crouch",
+			"guard"
+		],
+		"light": [
+			"punch0",
+			"punch1",
+			"guard"
+		],
+		"lowguard": [
+			"crouch"
+		],
+		"lowheavy": [
+			"upper",
+			"smash",
+			"guard"
+		],
+		"lowkick": [
+			"crouch"
+		],
+		"lowlight": [
+			"punch0",
+			"punch1",
+			"guard"
+		],
+		"recover": [
+			"down",
+			"crouch",
+			"guard"
+		],
+		"specialA": [
+			"serve",
+			"punch1",
+			"guard"
+		],
+		"specialB": [
+			"upper",
+			"serve",
+			"guard"
+		],
+		"specialC": [
+			"guard"
+		],
+		"ultimate": [
+			"serve",
+			"punch1",
+			"upper",
+			"smash",
+			"victory"
+		],
+		"uppercut": [
+			"upper",
+			"smash"
+		],
+		"victory": [
+			"victory"
+		],
+		"walk": [
+			"walk0",
+			"idle0",
+			"walk1",
+			"guard"
+		]
+	},
+	"frames": {
+		"crouch": [
+			0,
+			320,
+			384,
+			320
+		],
+		"dash": [
+			384,
+			320,
+			384,
+			320
+		],
+		"down": [
+			768,
+			960,
+			384,
+			320
+		],
+		"guard": [
+			384,
+			0,
+			384,
+			320
+		],
+		"hurt": [
+			384,
+			960,
+			384,
+			320
+		],
+		"idle0": [
+			0,
+			0,
+			384,
+			320
+		],
+		"idle1": [
+			0,
+			0,
+			384,
+			320
+		],
+		"idle2": [
+			384,
+			0,
+			384,
+			320
+		],
+		"jump0": [
+			768,
+			320,
+			384,
+			320
+		],
+		"jump1": [
+			1152,
+			320,
+			384,
+			320
+		],
+		"punch0": [
+			0,
+			640,
+			384,
+			320
+		],
+		"punch1": [
+			384,
+			640,
+			384,
+			320
+		],
+		"serve": [
+			0,
+			960,
+			384,
+			320
+		],
+		"smash": [
+			1152,
+			640,
+			384,
+			320
+		],
+		"upper": [
+			768,
+			640,
+			384,
+			320
+		],
+		"victory": [
+			1152,
+			960,
+			384,
+			320
+		],
+		"walk0": [
+			768,
+			0,
+			384,
+			320
+		],
+		"walk1": [
+			1152,
+			0,
+			384,
+			320
+		]
+	}
+}

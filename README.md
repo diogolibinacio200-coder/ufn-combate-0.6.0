@@ -1,6 +1,10 @@
 # UFN Combate — Edição Campus
 
-**Versão 0.6.0 · Windows x64 · Godot 4.7.2**
+**Versão 0.6.1 · Clarissa / Beach Tennis**
+
+Nova personagem jogável, saques, chuva de bolinhas, rede, voleio, smash e Ultimate com contato confirmado. [Notas, comandos e testes da 0.6.1](docs/ATUALIZACAO-0.6.1.md). Exportação validada com Godot 4.5.1; os downloads abaixo continuam sendo da versão estável 0.6.0.
+
+![Clarissa na seleção](docs/screens/v061/selection.png)
 
 Luta 2D com personagens da comunidade, cenários inspirados na UFN e em Santa Maria, e um modo de kart 3D para até dois jogadores locais.
 
@@ -96,7 +100,7 @@ Ao derrotar Kelvin, a torre entra na animação de conquista: os blocos e retrat
 
 ## Elenco e arenas
 
-**14 jogáveis:** Diogo, Vitor do Mal, Mirkos, Fabiano, Vitor do Bem, Murilo, Felipe, Maria, Gabriel, Arthur, Leonardo, Fernando, Cristian e Lorenzo. **Diogo Careca** é uma skin do Diogo, com os mesmos atributos e golpes. **André CSTH e Kelvin** são os dois chefes da torre e aparecem também na galeria e como oponentes do treino.
+**15 jogáveis:** Diogo, Vitor do Mal, Mirkos, Fabiano, Vitor do Bem, Murilo, Felipe, Maria, Gabriel, Arthur, Leonardo, Fernando, Cristian, Lorenzo e Clarissa. **Diogo Careca** é uma skin do Diogo, com os mesmos atributos e golpes. **André CSTH e Kelvin** são os dois chefes da torre e aparecem também na galeria e como oponentes do treino.
 
 As oito arenas são Pátio da UFN, Espaço Container, Rua de Santa Maria, Entrada da UFN, Quadra Universitária, Laboratório Tecnológico, Corredor Universitário e Vila Belga. Pátio, entrada, rua e Vila Belga usam referências locais pesquisadas. As demais são interpretações temáticas; não são reproduções documentais de instalações específicas. Veja [as referências e o mapeamento das imagens](docs/REFERENCIAS.md).
 

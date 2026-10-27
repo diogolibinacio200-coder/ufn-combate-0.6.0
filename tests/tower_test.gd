@@ -32,14 +32,14 @@ func run():
 	check(app.screen=="tower_select" and app.tower_count==3 and app.tower_difficulty==2,"gamepad/back returns to the tower choices without resetting them")
 	for count in [3,5,8,10]:
 		for level in 3:
-			for fighter in 14:
+			for fighter in app.PLAYABLE_IDS:
 				app.tower_count=count;app.tower_difficulty=level;app.begin_mode("tower");app.cursors[0]=fighter;app.tick_select(press())
 				var order=app.arcade_order
 				check(order.size()==count+2 and order[-2]==14 and order[-1]==15,"correct regular length and both final bosses for every playable fighter")
 				var regular=order.slice(0,count)
 				var unique={}
 				for id in regular:unique[id]=true
-				check(not fighter in regular and unique.size()==regular.size() and regular.all(func(id):return id>=0 and id<14),"no self-opponent, repeated rival or early boss")
+				check(not fighter in regular and unique.size()==regular.size() and regular.all(func(id):return id in app.PLAYABLE_IDS),"no self-opponent, repeated rival or early boss")
 			app.skins[0]=1;app.chosen[0]=3
 			# Build a fresh valid Diogo ladder before exercising persistence.
 			app.begin_mode("tower");app.cursors[0]=3;app.tick_select(press())

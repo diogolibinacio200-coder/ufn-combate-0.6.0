@@ -6,8 +6,8 @@ const FIGHTER = preload("res://scripts/fighter.gd")
 const MOTION = preload("res://scripts/fighter_motion.gd")
 const ALLY_ART = preload("res://scripts/ally_art.gd")
 var ally_texture: Texture2D
-const NAMES = ["arthur", "vitorbem", "maria", "diogo", "mirkos", "felipe", "murilo", "gabriel", "fabiano", "vitormal", "lorenzo", "leonardo", "cristian", "fernando", "andre", "kelvin"]
-const COLORS = [Color("ffc365"),Color("8ec6ff"),Color("75b8ff"),Color("8be38e"),Color("62e8f1"),Color("ff645d"),Color("ff9ad0"),Color("ffde72"),Color("c5a4ff"),Color("e394ff"),Color("70dcff"),Color("f2bf6d"),Color("f6ad75"),Color("cf9a6d"),Color("bee17c"),Color("d5a1ff")]
+const NAMES = ["arthur", "vitorbem", "maria", "diogo", "mirkos", "felipe", "murilo", "gabriel", "fabiano", "vitormal", "lorenzo", "leonardo", "cristian", "fernando", "andre", "kelvin", "clarissa"]
+const COLORS = [Color("ffc365"),Color("8ec6ff"),Color("75b8ff"),Color("8be38e"),Color("62e8f1"),Color("ff645d"),Color("ff9ad0"),Color("ffde72"),Color("c5a4ff"),Color("e394ff"),Color("70dcff"),Color("f2bf6d"),Color("f6ad75"),Color("cf9a6d"),Color("bee17c"),Color("d5a1ff"),Color("f29bce")]
 const STAGE_COLORS = [Color("50e1df"),Color("de69c7"),Color("a899f5"),Color("9b6fec"),Color("b0e3f2"),Color("e5ba65"),Color("79b2ef"),Color("ec885b"),Color("76d6c1"),Color("d294ed")]
 const BEAR_REGIONS = [Rect2(76,18,265,401),Rect2(521,25,301,396),Rect2(968,29,313,388),Rect2(1340,66,433,355),Rect2(48,426,322,436),Rect2(490,546,427,285),Rect2(929,470,395,386),Rect2(1382,501,352,343)]
 const BEAR_FOOT_X = [210.0,666.0,1093.0,1488.0,224.0,674.0,1116.0,1574.0]
@@ -551,7 +551,7 @@ func draw_fighter(f: Dictionary,t: float,alt: bool = false) -> void:
 	var sequence: Array=data.animations.get(pose,data.animations.get("heavy",data.animations.idle) if pose=="uppercut" else data.animations.idle)
 	if state=="walk" and float(f.get("vel",Vector2.ZERO).x)*face<0:
 		# Backpedal retains a defensive upper-body stance and reverses the stride.
-		sequence=data.animations.guard if id<14 else ["idle0"]
+		sequence=data.animations.get("backwalk",data.animations.idle) if id==16 else (data.animations.guard if id<14 else ["idle0"])
 	var fn=str(sequence[mini(sequence.size()-1,int(phase*sequence.size()))])
 	if f.has("_frame_name"):fn=str(f._frame_name)
 	if id==13 and not m.is_empty() and state in ["attack","super","throw"]:
@@ -672,6 +672,14 @@ func _draw_super_sequence(sequence: Dictionary,t: float) -> void:
 	a.x=410.0;a.y=590.0;a.face=1;a._visual_scale=1.12;a._pose_name=["light","heavy","kick","specialA","specialB","ultimate"][beat]
 	b.x=840.0;b.y=555.0-sin(q*PI)*75;b.face=-1;b._visual_scale=1.12;b._pose_name="hurt"
 	match id:
+		16:
+			a._pose_name="specialA" if beat<4 else "heavy"
+			a._pose_phase=fposmod(q*6.0,1.0)
+			if beat>=4:a.y-=sin(fposmod(q*3.0,1.0)*PI)*95.0
+			var flight=fposmod(q*6.0,1.0)
+			_beach_ball(Vector2(480,a.y-145).lerp(Vector2(840,b.y-110),minf(1,flight*2.4)),48 if beat==5 else 17,t)
+			for grain in 18:
+				draw_circle(Vector2(500+grain*23,585-sin(t*5+grain)*12),2,Color("e5ca8e"))
 		0:
 			a.x=660.0-pulse_hit*55;a._pose_name="heavy" if beat<4 else "lowheavy";b.x=735.0;b.y=390.0 if beat<4 else 585.0
 			if beat>=4:
@@ -702,7 +710,7 @@ func _draw_super_sequence(sequence: Dictionary,t: float) -> void:
 			draw_string(ThemeDB.fallback_font,Vector2(560,262),"f(x) = COMBO²",HORIZONTAL_ALIGNMENT_LEFT,-1,39,c)
 		9:
 			for i in range(4):_ufn_ally(Vector2(590+i*80,590-i%2*45),t+i,i)
-	if id>=10:
+	if id>=10 and id<16:
 		var visuals=["network","foam","house","bear","gas","skate"]
 		if id==13:
 			a.bear_x=740.0;a._pose_name="victory";b.x=875.0
@@ -1010,6 +1018,15 @@ func draw_projectile(p: Dictionary,t: float) -> void:
 	var c: Color=COLORS[clampi(id,0,NAMES.size()-1)]
 	var pos=Vector2(float(p.get("x",640)),float(p.get("y",480)))
 	var visual=str(p.get("visual",p.get("move",{}).get("visual",p.get("kind","projectile"))))
+	if visual=="beach_ball":
+		for trail in 4:draw_circle(pos-Vector2(p.get("vel",Vector2.ZERO))*trail*.9, maxf(2,10-trail*2),Color(1,.6,.8,.18))
+		_beach_ball(pos,float(p.get("radius",15)),t)
+		return
+	if visual=="beach_net":
+		for line_id in 7:draw_line(pos+Vector2(-32,-88+line_id*22),pos+Vector2(32,-88+line_id*22),Color("fff0dd"),2)
+		for line_id in 5:draw_line(pos+Vector2(-32+line_id*16,-88),pos+Vector2(-32+line_id*16,44),Color("fff0dd"),2)
+		for side in [-1,1]:draw_line(pos+Vector2(side*35,-95),pos+Vector2(side*35,92),Color("ed83bd"),5)
+		return
 	var age=float(p.get("age",0))/60
 	var kind=str(p.get("kind",""))
 	var active=bool(p.get("active",true))
@@ -1226,6 +1243,10 @@ func _ufn_prop(f: Dictionary,pose: String,q: float,t: float,skin_name: String=""
 		var socket: Array=sprite_data[skin_name].get("sockets",{}).get(frame_name,{}).get("hand",[])
 		if socket.size()==2:hand=Vector2(float(socket[0])-192.0,float(socket[1])-304.0)
 	var strength=sin(q*PI)
+	if v=="beach_smash":
+		draw_arc(hand,50+strength*60,-1.7,1.4,20,Color(1,.65,.82,strength*.65),5,true)
+		for grain in 8:draw_circle(Vector2(30+grain*20,-8-absf(sin(t*8+grain))*strength*35),2,Color("e5ca8e"))
+		return
 	if v in ["packet","network","firewall","foam","mug","brick","wall","pillar","house","gas","burp","skate","rail"]:
 		_draw_new_effect(v,hand if v not in ["skate","rail"] else Vector2(0,-5),t,COLORS[int(f.id)],"prop",false)
 		return
@@ -1332,3 +1353,8 @@ func _draw_new_effect(v: String,p: Vector2,t: float,c: Color,kind: String,telegr
 			draw_line(p-dir*48-Vector2(0,3),p+dir*48-Vector2(0,3),Color("39213e"),5)
 			for side in [-1,1]:draw_circle(p+dir*side*37+Vector2(0,8),7,Color("b2ccdb"))
 			if v=="rail":draw_line(p-Vector2(120,-21),p+Vector2(155,33),Color("a0dfff"),5)
+
+func _beach_ball(pos:Vector2,radius:float,t:float) -> void:
+	draw_circle(pos,radius,Color("ffce50"))
+	draw_arc(pos,radius*.72,t*9,t*9+PI,18,Color("ed579c"),maxf(2,radius*.3),true)
+	draw_arc(pos,radius,0,TAU,24,Color("fff3b0"),2,true)

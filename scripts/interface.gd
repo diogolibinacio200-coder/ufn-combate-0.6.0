@@ -162,7 +162,7 @@ func draw_menu() -> void:
 	tx("A SUA ARENA.",57,410,27,WHITE)
 	var descriptions=["Dez confrontos e um final para cada campeão.","Suba a torre. Enfrente André CSTH e Kelvin.","Desafie um amigo ou a CPU em melhor de três.","Duas equipes. Vida, energia e troca estratégicas.","Cinco circuitos, oito pilotos e poderes exclusivos.","Pratique golpes e ajuste seu adversário.","Aprenda os comandos na arena e na pista.","Quatro ou oito participantes. Humanos e CPU.","Uma barra de vida. Até onde você consegue ir?","Conheça o elenco, as arenas e suas conquistas.","Seu histórico de confrontos e recordes.","Imagem, áudio, acessibilidade e dispositivos.","Configure golpes, defesa e esquiva para cada jogador.","Criação, produção e referências do jogo.","Até o próximo combate."]
 	panel(Rect2(55,558,696,81),Color(.015,.065,.126,.96),Color("3e6b94"))
-	tx("14 LUTADORES  ·  8 ARENAS  ·  5 CIRCUITOS",74,585,20,GOLD)
+	tx("15 LUTADORES  ·  8 ARENAS  ·  5 CIRCUITOS",74,585,20,GOLD)
 	wrap_text(descriptions[app.menu_index],74,615,651,20,WHITE,23)
 	tx("ESCOLHA SEU MODO",845,90,16,MUTED)
 	for i in range(app.MENU.size()):
@@ -192,17 +192,17 @@ func draw_select() -> void:
 		tag("J"+str(i+1)+(" · PRONTO" if app.ready_players[i] else " · ESCOLHENDO"),x+53,176,col,230)
 		center(info(id).name,566,35,col,x,340)
 		center(info(id).title,593,15,MUTED,x-8,356)
-		center("USO: "+complexity[clampi(id,0,complexity.size()-1)],618,15,GOLD,x,340)
+		center("USO: "+("INTERMEDIÁRIO" if id==16 else complexity[clampi(id,0,complexity.size()-1)]),618,15,GOLD,x,340)
 		if id==3: center(app.binding_label(i,"heavy")+" · "+("CARECA" if skin==1 else "PRINCIPAL"),642,15,WHITE,x,340)
 		elif app.mode=="teams" and app.selection_phase==1:center("LÍDER · "+info(app.chosen[i]).name,642,15,WHITE,x,340)
 	for i in range(app.PLAYABLE):
-		var rect=Rect2(358+(i%7)*82,222+int(i/7)*149,76,139)
+		var rect=Rect2(358+(i%5)*112,190+int(i/5)*108,106,101)
 		panel(rect,Color("123653"),Color("3b6382"))
-		app.arena.draw_portrait(self,i,Rect2(rect.position+Vector2(1,2),Vector2(74,108)),0,false)
-		draw_rect(Rect2(rect.position+Vector2(0,108),Vector2(76,31)),INK)
-		center(info(i).name.replace("VITOR DO ","V. "),rect.position.y+129,13,WHITE,rect.position.x,76)
+		app.arena.draw_portrait(self,app.PLAYABLE_IDS[i],Rect2(rect.position+Vector2(16,2),Vector2(74,76)),0,false)
+		draw_rect(Rect2(rect.position+Vector2(0,78),Vector2(106,23)),INK)
+		center(info(app.PLAYABLE_IDS[i]).name.replace("VITOR DO ","V. "),rect.position.y+95,12,WHITE,rect.position.x,106)
 		for j in range(2):
-			if app.cursors[j]==i:
+			if app.cursors[j]==app.PLAYABLE_IDS[i]:
 				var col=CYAN if j==0 else RED
 				draw_rect(rect.grow(-j*3),col,false,3)
 				tag("J"+str(j+1),rect.position.x+j*36,rect.position.y+3,col,39)
@@ -472,6 +472,7 @@ func draw_help() -> void:
 			tx(str(int(move.cost))+"% ENERGIA · DANO "+str(int(move.damage)),745,y+22,14,MUTED)
 			line(Vector2(430,y+37),Vector2(1205,y+37))
 		tx("ULTIMATE · "+str(data.super),430,522,26,GOLD)
+		if id==16:tx("FRENTE + A1: VOLEIO DUPLO · 16% ENERGIA",430,574,15,MUTED)
 		tx("DEFESA + A2 · 100% DE ENERGIA",430,550,16,MUTED)
 		tx("J1: "+app.binding_label(0,"attack")+" / "+app.binding_label(0,"heavy")+" / "+app.binding_label(0,"kick")+" · ESQUIVA "+app.binding_label(0,"dodge"),430,588,19,CYAN)
 		tx("J2: "+app.binding_label(1,"attack")+" / "+app.binding_label(1,"heavy")+" / "+app.binding_label(1,"kick")+" · ESQUIVA "+app.binding_label(1,"dodge"),430,616,19,RED)
@@ -548,10 +549,10 @@ func draw_tournament() -> void:
 	tx("ESCOLHA O PARTICIPANTE "+str(app.tournament_roster.size()+1)+" / "+str(app.tournament_size),65,164,22,GOLD)
 	tx(app.binding_label(0,"heavy")+"  TIPO: "+("CPU" if app.entry_cpu else "HUMANO"),865,164,22,CYAN)
 	for i in app.PLAYABLE:
-		var rect=Rect2(65+(i%7)*165,205+int(i/7)*156,149,145)
+		var rect=Rect2(65+(i%8)*145,205+int(i/8)*146,137,135)
 		panel(rect,Color("123653"),GOLD if i==app.tournament_cursor else Color("3d6382"))
-		app.arena.draw_portrait(self,i,Rect2(rect.position+Vector2(25,2),Vector2(99,111)),0,false)
-		center(info(i).name,rect.position.y+132,16,GOLD if i==app.tournament_cursor else WHITE,rect.position.x,149)
+		app.arena.draw_portrait(self,app.PLAYABLE_IDS[i],Rect2(rect.position+Vector2(19,2),Vector2(99,111)),0,false)
+		center(info(app.PLAYABLE_IDS[i]).name,rect.position.y+128,14,GOLD if i==app.tournament_cursor else WHITE,rect.position.x,149)
 	for i in app.tournament_size:
 		var x=65+(i%4)*294
 		var y=532+int(i/4)*53
@@ -601,7 +602,7 @@ func draw_kart_stage() -> void:
 		tx(app.KART_TRACKS[i],x+14,y+181,22,GOLD if app.stage_cursor==i else WHITE)
 	tx("UFN / ANDRADAS",865,454,26,GOLD)
 	wrap_text("Um circuito urbano ao redor do Conjunto II, em Santa Maria.",865,490,325,23,MUTED,29)
-	tx("0.6.0  /  EDIÇÃO CAMPUS",865,592,18,MUTED)
+	tx("0.6.1  /  EDIÇÃO CAMPUS",865,592,18,MUTED)
 	footer("SELEÇÃO","CORRER")
 
 func draw_setup() -> void:
@@ -623,7 +624,7 @@ func draw_gallery() -> void:
 		var data=info(id)
 		app.arena.draw_portrait(self,id,Rect2(72,174,390,441),1,false,app.skins[0] if id==3 else 0)
 		tx(data.name,534,226,49,GOLD)
-		tx("CHEFE DA TORRE · NÃO JOGÁVEL" if id>=app.PLAYABLE else data.title,537,271,22,MUTED)
+		tx("CHEFE DA TORRE · NÃO JOGÁVEL" if id not in app.PLAYABLE_IDS else data.title,537,271,22,MUTED)
 		wrap_text(data.quote,537,333,620,30,WHITE,37)
 		wrap_text(data.ending,537,425,620,23,MUTED,30)
 		tx("ULTIMATE · "+data.super,537,583,24,GOLD)

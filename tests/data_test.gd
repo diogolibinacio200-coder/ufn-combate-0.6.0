@@ -9,7 +9,7 @@ func check(condition: bool, label: String) -> void:
 		push_error(label)
 func _initialize() -> void:
 	var db = DB.new()
-	check(db.ROSTER.size() == 16 and db.PLAYABLE == 14,"14 jogáveis e dois chefes exclusivos")
+	check(db.ROSTER.size() == 17 and db.PLAYABLE == 15,"15 jogáveis e dois chefes exclusivos")
 	db.balance_overrides = {"ESCUDO ADAPTATIVO":{"damage":61.0},"REVERSÃO [DEFENSE]":{"damage":93.0},"SOCO RÁPIDO":{"name":"CHANGED","kind":"super","family":"super","damage":71.0,"startup":13.0}}
 	check(db.specials(4)[2].damage == 61,"special numerical override")
 	check(db.defense(2).damage == 93,"defense numerical override is independent")

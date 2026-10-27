@@ -1,0 +1,96 @@
+[
+  {
+    "suite": "modules_test",
+    "passed": true
+  },
+  {
+    "suite": "audio_test",
+    "passed": true
+  },
+  {
+    "suite": "defense_test",
+    "passed": true
+  },
+  {
+    "suite": "data_test",
+    "passed": true
+  },
+  {
+    "suite": "flow_test",
+    "passed": true
+  },
+  {
+    "suite": "test_kart",
+    "passed": true
+  },
+  {
+    "suite": "release_test",
+    "passed": true
+  },
+  {
+    "suite": "ultimate050_test",
+    "passed": true
+  },
+  {
+    "suite": "animation050_test",
+    "passed": true
+  },
+  {
+    "suite": "driver050_test",
+    "passed": true
+  },
+  {
+    "suite": "kart050_test",
+    "passed": true
+  },
+  {
+    "suite": "ultimate060_test",
+    "passed": true
+  },
+  {
+    "suite": "reference_assets060_test",
+    "passed": true
+  },
+  {
+    "suite": "stability060_test",
+    "passed": true
+  },
+  {
+    "suite": "clarissa061_test",
+    "passed": true
+  },
+  {
+    "suite": "ufn_combat_test",
+    "passed": true
+  },
+  {
+    "suite": "v2_test",
+    "passed": true
+  },
+  {
+    "suite": "polish_test",
+    "passed": true
+  },
+  {
+    "suite": "tower_test",
+    "passed": true
+  },
+  {
+    "suite": "skin050_test",
+    "passed": true
+  },
+  {
+    "suite": "ally050_test",
+    "passed": true
+  },
+  {
+    "suite": "clarissa061_flow_test",
+    "passed": true,
+    "checks": 96
+  },
+  {
+    "suite": "render_test",
+    "passed": true,
+    "checks": 16852
+  }
+]

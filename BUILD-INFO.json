@@ -1,18 +1,9 @@
 {
-  "version": "0.6.0",
-  "engine": "Godot 4.7.2 stable",
-  "date": "2026-10-12",
-  "source_repository": "https://github.com/diogolibinacio200-coder/ufn-combate-0.5.0",
-  "source_commit": "6f20244e94a63065d9a2f7aebe78276948e3e458",
+  "version": "0.6.1",
+  "engine_tested": "Godot 4.5.1 stable",
+  "base_commit": "c78246ebdde65acbcd19e3d5bb146f9195a72d11",
   "repository": "https://github.com/diogolibinacio200-coder/ufn-combate-0.6.0",
-  "windows_runtime_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
-  "windows_runtime_signature": "Valid Authenticode signature of official Godot runtime; project files are not separately signed",
-  "pck_sha256": "d58299cc86790edf54b6338ffdcc12e3ea1475bb63a5e0663d8eeccccbdb5445",
-  "windows_zip_sha256": "b17484581a4a87c9fda13878b5f43f6db29ee3e0a26a25cd8e76275fda84b778",
-  "source_zip_sha256": "See SHA256-0.6.0.txt beside the archives; not embedded in itself",
-  "validation": "docs/QA.md",
-  "limits": [
-    "8 armor frame aliases reuse whole poses from the supplied reference; no new poses invented",
-    "Two physical controllers, competitive balance and multi-hour human sessions not validated"
-  ]
+  "windows_exe_sha256": "2351e7e4a1cd5ae1cfefad126ee3e930e5c81284d9d591bd17c5235ea0a82987",
+  "windows_executed": false,
+  "validation": "docs/ATUALIZACAO-0.6.1.md"
 }

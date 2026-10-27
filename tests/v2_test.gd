@@ -66,7 +66,7 @@ func run():
 		else:check(not c.cinematic.active,"Gás do André permite movimento e fuga")
 	var app=App.new();app.profile=Profile.new("user://v2_test_"+str(OS.get_process_id())+".json");root.add_child(app);app.set_physics_process(false);app.set_process(false)
 	app.begin_mode("tower");app.cursors[0]=13;app.tick_select([{"attack_pressed":true},{}])
-	check(app.screen=="tower" and app.arcade_order.size()==12 and app.arcade_order.slice(0,10).all(func(id):return id<14 and id!=13) and app.arcade_order[-2]==14 and app.arcade_order[-1]==15,"Torre contém dez jogáveis e chefes finais")
+	check(app.screen=="tower" and app.arcade_order.size()==12 and app.arcade_order.slice(0,10).all(func(id):return id in app.PLAYABLE_IDS and id!=13) and app.arcade_order[-2]==14 and app.arcade_order[-1]==15,"Torre contém dez jogáveis e chefes finais")
 	app.arcade_index=10;app.save_tower();app.profile.load_profile();app.open_setup("tower");app.tick_setup([{"attack_pressed":true},{}])
 	check(app.arcade_index==10 and app.chosen==[13,14],"Torre retoma personagem e andar salvos")
 	app.mode="tournament";app.tournament_size=8;app.tournament_roster=[];app.tournament_cpu=[]

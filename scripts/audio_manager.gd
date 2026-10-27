@@ -120,6 +120,9 @@ func play(event: String, character: int = 0) -> void:
 func play_event(event: Dictionary, character: int = 0) -> void:
 	if bool(event.get("silent_audio",false)):return
 	var kind=str(event.get("type","hit"))
+	if character==16 and kind in ["projectile","hit","super_hit"]:
+		play("beach_hit",character)
+		if kind!="super_hit" or not event.get("final",false):return
 	if kind=="super_hit":
 		# The finisher owns the low impact. Rapid punches use short dry contacts,
 		# preventing eighteen overlapping KO explosions during Vitor's flurry.

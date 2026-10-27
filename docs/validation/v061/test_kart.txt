@@ -1,0 +1,29 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+PASS smooth closed campus circuit with distance parameterization
+PASS acceleration produces forward movement
+PASS braking removes speed
+PASS steering turns the vehicle
+PASS releasing a charged drift awards miniturbo
+PASS crossing the finish without checkpoints never awards a lap
+PASS reverse crossing cannot advance checkpoints
+PASS crossing outside the finite road gate cannot count
+PASS skipping the next checkpoint cannot count
+PASS all 20 ordered checkpoints award exactly one lap
+PASS three complete laps finish the race
+PASS shield absorbs one attack without slowing
+PASS unshielded impact stuns and slows
+PASS recovery preserves checkpoint progress and resets speed
+PASS random boxes can award six item categories including signatures
+PASS AI finishes all three legal laps on track 0 (79.1 s)
+PASS AI finishes all three legal laps on track 1 (71.4 s)
+PASS AI finishes all three legal laps on track 2 (85.6 s)
+PASS AI finishes all three legal laps on track 3 (96.8 s)
+PASS two cameras share the same racing world
+PASS both players can accelerate simultaneously using independent physical keys
+PASS releasing player one's key leaves player two accelerating
+PASS holding item key triggers only its first press edge
+PASS driving through an item box grants an item and starts respawn
+PASS launched pulse hits another racer
+PASS pause stops the entire race timer and simulation
+KART TESTS: 26 passed / 0 failed

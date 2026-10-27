@@ -11,6 +11,7 @@ const STAGES = ["PÁTIO DA UFN","ESPAÇO CONTAINER","RUA DE SANTA MARIA","ENTRAD
 const STAGE_SUB = ["Convivência, vegetação e arquitetura franciscana","Encontro entre aulas, ideias e histórias","Santa Maria • coração do Rio Grande do Sul","O campus recebe mais um desafio","Esporte, torcida e espírito de equipe","Tecnologia e imaginação em movimento","Entre aulas e ideias · interpretação temática","Casas históricas e fachadas coloridas"]
 const CATALOG = preload("res://scripts/move_db.gd")
 const PLAYABLE = CATALOG.PLAYABLE
+const PLAYABLE_IDS = CATALOG.PLAYABLE_IDS
 const MENU = ["ARCADE","TORRE UFN","VERSUS LOCAL","DUPLAS 2v2","KART UFN","TREINAMENTO","TUTORIAL","TORNEIO LOCAL","SOBREVIVÊNCIA","GALERIA","ESTATÍSTICAS","CONFIGURAÇÕES","CONTROLES","CRÉDITOS","SAIR"]
 const KART_TRACKS = ["CIRCUITO DO CAMPUS","VOLTA DA VILA BELGA","CENTRO DE SANTA MARIA","DESAFIO UNIVERSITÁRIO","UFN / ANDRADAS"]
 const Kart = preload("res://scripts/kart.gd")
@@ -451,7 +452,7 @@ func update_demo(interaction: bool) -> void:
 	if not demo_active or demo_frames>1800 or (demo_combat.winner>=0 and demo_frames%180==0):
 		var first=randi_range(0,PLAYABLE-1)
 		var second=posmod(first+randi_range(1,PLAYABLE-1),PLAYABLE)
-		demo_combat.setup([first,second])
+		demo_combat.setup([PLAYABLE_IDS[first],PLAYABLE_IDS[second]])
 		demo_stage=randi_range(0,STAGES.size()-1)
 		for fighter in demo_combat.fighters: fighter.meter=80.0
 		demo_active=true;demo_frames=0
@@ -467,8 +468,8 @@ func begin_mode(next_mode: String) -> void:
 	mode=next_mode
 	tutorial=false
 	selection_phase=0
-	chosen[0]=clampi(chosen[0],0,PLAYABLE-1)
-	chosen[1]=clampi(chosen[1],0,PLAYABLE-1)
+	chosen[0]=chosen[0] if chosen[0] in PLAYABLE_IDS else 0
+	chosen[1]=chosen[1] if chosen[1] in PLAYABLE_IDS else 0
 	cursors=chosen.duplicate()
 	ready_players=[false,solo_selection()]
 	if mode=="survival":survival_wave=0;survival_score=0;survival_health=1000
@@ -489,8 +490,8 @@ func tick_select(p: Array) -> void:
 			else:set_screen("tower_select" if mode=="tower" else "menu")
 			return
 		if ready_players[i]:continue
-		var direction=axis(p,true,i)+axis(p,false,i)*7
-		cursors[i]=navigate(cursors[i],direction,PLAYABLE)
+		var direction=axis(p,true,i)+axis(p,false,i)*5
+		cursors[i]=PLAYABLE_IDS[navigate(PLAYABLE_IDS.find(cursors[i]),direction,PLAYABLE)]
 		if cursors[i]==3 and p[i].get("heavy_pressed",false):
 			if selection_phase==0:skins[i]=1-skins[i]
 			else:reserve_skins[i]=1-reserve_skins[i]
@@ -506,14 +507,14 @@ func tick_select(p: Array) -> void:
 		selection_phase=1;cursors=reserves.duplicate();ready_players=[false,false];return
 	if mode in ["arcade","tower"]:
 		arcade_order=[]
-		for i in PLAYABLE:
+		for i in PLAYABLE_IDS:
 			if i!=chosen[0]:arcade_order.append(i)
 		# Tower sizes describe regular opponents; André CSTH and Kelvin are always added as the two final bosses.
 		arcade_order.shuffle();arcade_order.resize(tower_count if mode=="tower" else 8);arcade_order.append_array([14,15]);arcade_index=0
 		tower_celebrated=false
 		chosen[1]=arcade_order[0]
 		if mode=="tower":save_tower();set_screen("tower");return
-	if mode in ["training","survival"]:chosen[1]=(chosen[0]+1)%PLAYABLE
+	if mode in ["training","survival"]:chosen[1]=PLAYABLE_IDS[(PLAYABLE_IDS.find(chosen[0])+1)%PLAYABLE]
 	stage_cursor=stage
 	set_screen("kart_stage" if mode=="kart" else "stage")
 
@@ -697,7 +698,7 @@ func resolve_round() -> void:
 	if wins[0] >= goal_rounds or wins[1] >= goal_rounds:
 		match_winner = 0 if wins[0] > wins[1] else 1
 		if mode == "attract":
-			chosen = [randi_range(0,PLAYABLE-1), randi_range(0,PLAYABLE-1)]
+			chosen = [PLAYABLE_IDS.pick_random(), PLAYABLE_IDS.pick_random()]
 			stage = (stage+1)%STAGES.size()
 			start_match()
 			return
@@ -767,8 +768,8 @@ func tick_result(p: Array) -> void:
 				set_screen("tower" if mode=="tower" else "vs")
 		"PRÓXIMO RIVAL":
 			survival_wave+=1
-			chosen[1]=posmod(chosen[1]+3,PLAYABLE)
-			if chosen[1]==chosen[0]:chosen[1]=(chosen[1]+1)%PLAYABLE
+			chosen[1]=PLAYABLE_IDS[posmod(PLAYABLE_IDS.find(chosen[1])+3,PLAYABLE)]
+			if chosen[1]==chosen[0]:chosen[1]=PLAYABLE_IDS[(PLAYABLE_IDS.find(chosen[1])+1)%PLAYABLE]
 			profile.data.progress.records.survival=maxi(int(profile.data.progress.records.get("survival",0)),survival_score)
 			persist();set_screen("vs")
 		"VER CHAVEAMENTO":
@@ -931,7 +932,7 @@ func tick_tournament(p: Array) -> void:
 	tournament_cursor=navigate(tournament_cursor,axis(p,true),PLAYABLE)
 	if p[0].get("heavy_pressed",false) or p[1].get("heavy_pressed",false):entry_cpu=not entry_cpu
 	if confirm(p,0) or confirm(p,1):
-		tournament_roster.append(tournament_cursor);tournament_cpu.append(entry_cpu);tournament_cursor=(tournament_cursor+1)%PLAYABLE;sound.play("confirm")
+		tournament_roster.append(PLAYABLE_IDS[tournament_cursor]);tournament_cpu.append(entry_cpu);tournament_cursor=(tournament_cursor+1)%PLAYABLE;sound.play("confirm")
 		if tournament_roster.size()==tournament_size:
 			bracket_current=range(tournament_size);bracket_next=[];bracket_match=0;prepare_tournament_match()
 
@@ -982,9 +983,9 @@ func mouse_navigation(event: InputEvent) -> void:
 	elif screen == "select":
 		var player := 1 if ready_players[0] and not ready_players[1] else 0
 		for i in PLAYABLE:
-			if Rect2(358+(i%7)*82,222+int(i/7)*149,76,139).has_point(point):
-				if cursors[player] != i:
-					cursors[player] = i
+			if Rect2(358+(i%5)*112,190+int(i/5)*108,106,101).has_point(point):
+				if cursors[player] != PLAYABLE_IDS[i]:
+					cursors[player] = PLAYABLE_IDS[i]
 					sound.play("select")
 				var commands = [{},{}]
 				if clicked: commands[player] = {"attack_pressed":true}
@@ -1064,7 +1065,7 @@ func open_tower_selection() -> void:
 	tower_previews.clear()
 	for count in TOWER_COUNTS:
 		var order=[]
-		for id in PLAYABLE:
+		for id in PLAYABLE_IDS:
 			if id!=chosen[0]:order.append(id)
 		order.shuffle();order.resize(count);order.append_array([14,15])
 		tower_previews.append(order)

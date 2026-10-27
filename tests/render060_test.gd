@@ -41,7 +41,7 @@ func run() -> void:
 	viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS
 	root.add_child(viewport)
 	var arena=Probe.new();viewport.add_child(arena);arena.set_process(false)
-	for id in 16:
+	for id in 17:
 		for variant in (2 if id in [3,4] else 1):
 			var a=Fighter.create(id,0);var b=Fighter.create(id,1)
 			for actor in [a,b]:

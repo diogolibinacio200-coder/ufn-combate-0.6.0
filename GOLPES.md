@@ -225,3 +225,8 @@ Os chefes não ficam disponíveis na seleção normal de lutadores/pilotos. É p
 Entre em **Treinamento**, use Tab para opções e escolha o comportamento do oponente. Ative hitboxes para observar o alcance real e confira o histórico de comandos. Comece com A1, confirme o acerto e tente um especial. A pausa também oferece controles e lista de golpes. Na seleção, Tab abre diretamente o guia do personagem apontado por J1; as setas permitem consultar os demais.
 
 Os valores ativos são definidos por `scripts/move_db.gd` e ajustados por `data/balance.json`. A aparência de um efeito pode ser maior que sua área de contato; use o treinamento para conhecer essa área. Consulte [README.md](README.md) para modos e teclas.
+
+
+## Clarissa — 0.6.1
+
+[Comandos, custos, limites e Ultimate](docs/ATUALIZACAO-0.6.1.md#comandos).
