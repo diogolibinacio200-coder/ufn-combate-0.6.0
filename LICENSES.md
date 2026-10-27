@@ -47,3 +47,8 @@ Copyright (c) 2014, Indian Type Foundry.
 A distribuição Windows usa **UFNCombate.exe** e **UFNCombate.pck**, que devem permanecer juntos. A rotina de empacotamento mantém os dados de UFN Combate no PCK separado e pode usar o executável oficial **Godot 4.7.2** renomeado. A procedência e a verificação do executável efetivamente entregue ficam registradas em [docs/QA.md](docs/QA.md). Uma assinatura da engine não constitui assinatura do conteúdo, da autoria ou da distribuição do jogo por Diogo Liberalesso Inácio. Os avisos da engine e da fonte devem acompanhar o pacote.
 
 As referências a outros jogos descrevem inspiração de gênero e estrutura; o projeto não inclui assets extraídos de Mortal Kombat ou Street Fighter.
+
+
+## Clarissa — 0.6.1
+
+Referência visual fornecida pelo autor do projeto. Novas poses com raquete geradas pela ferramenta de imagem do ChatGPT a partir dessa referência, em assets/references/061; importação em tools/import_clarissa061.gd. Som beach_hit.wav sintetizado originalmente por tools/generate_beach_audio.py, sem gravações de terceiros.

@@ -39,7 +39,7 @@ func reset_round() -> void:
 	for player in 2:
 		for id in initial_ids[player]:
 			var f=Fighter.create(id,player)
-			if id>=MoveDB.PLAYABLE:
+			if id not in MoveDB.PLAYABLE_IDS:
 				f.max_hp *= ([1.10,1.15,1.25,1.30] if id==14 else [1.15,1.25,1.30,1.40])[clampi(difficulty,0,3)]
 				f.hp=f.max_hp
 			teams[player].append(f)
@@ -663,6 +663,8 @@ func _command(f: Dictionary, other: Dictionary, inp: Dictionary) -> bool:
 		f.motion.clear()
 	elif attack_edge and back:
 		command = _buffer_special(f,0)
+	elif f.id==16 and forward and attack_edge and not inp.down:
+		command=move_db.move("VOLEIO DUPLO","beach_volley",39,9,17,24,145,16,{"visual":"beach_smash","body_pose":"punch","hitstun":18,"push":2.0})
 	elif f.prepared > 0 and (inp.kick_pressed or inp.heavy_pressed):
 		command = move_db.move("VOLEIO PREPARADO" if not inp.down else "CHUTE RASTEIRO","projectile",110,10,1,29,65,0,{"speed":11.0,"level":"mid" if not inp.down else "low","visual":"football","body_pose":"kick"})
 		f.prepared = 0
@@ -722,6 +724,9 @@ func _command(f: Dictionary, other: Dictionary, inp: Dictionary) -> bool:
 
 func _start_move(f: Dictionary, source: Dictionary) -> void:
 	var m: Dictionary = source.duplicate(true)
+	if f.id==16 and m.family=="normal":
+		m.name="SMASH" if m.body_pose=="heavy" else "GOLPE DE RAQUETE"
+		m.visual="beach_smash"
 	if f.id==13:
 		m.name="URSO · "+m.name if m.family=="normal" else m.name
 		m.visual="bear_return" if m.visual=="bear_return" else "bear"
@@ -821,6 +826,11 @@ func _process_move(f: Dictionary, other: Dictionary, contacts: Array) -> void:
 		if m.kind in ["robot_super","rush_combo","rush_red"]:
 			_event("ultimate_phase",f.player,m.name,{"character":f.id,"phase":"robots" if f.id==4 else "capture","target":other.player})
 		match m.kind:
+			"beach_rain":
+				for lane in 3:
+					var rain:Dictionary=m.duplicate(true)
+					rain.speed=0.0;rain.vy=7.0;rain.setup_time=lane*7
+					_spawn(f,rain,"projectile",clampf(other.x+(lane-1)*58.0,70.0,1210.0),GROUND-325.0)
 			"robot_super":
 				for lane in 2:
 					_spawn(f,m,"robot_strike",f.x+f.face*(52.0-lane*46.0),GROUND-105.0)
@@ -882,7 +892,8 @@ func _process_move(f: Dictionary, other: Dictionary, contacts: Array) -> void:
 			"throw":
 				if absf((f.bear_x if f.id==13 else f.x)-other.x) <= m.range and Fighter.grounded(other) and other.invuln == 0 and other.stun == 0 and other.state not in ["throw","thrown"]:
 					contacts.append({"owner":f.player,"move":m.duplicate(true)})
-	if m.kind in ["robot_super","projectile","trap","barrier","teleport","counter","buff","evade","throw","cloud","loop","sentry","drone","allies","reload","drink","transform","prepare","feint","jump_toss"]: return
+	if m.kind in ["beach_rain","robot_super","projectile","trap","barrier","teleport","counter","buff","evade","throw","cloud","loop","sentry","drone","allies","reload","drink","transform","prepare","feint","jump_toss"]: return
+	if m.kind=="beach_volley" and f.frame==m.startup+10:f.hit_targets.clear()
 	if f.hit_targets.has(other.player): return
 	if m.kind=="rush_red" and (other.invuln>0 or other.state in ["throw","thrown","knockdown","wakeup"]):return
 	if hitbox(f).intersects(Fighter.hurtbox(other)):
@@ -1090,6 +1101,10 @@ func _update_projectiles(inputs: Array) -> void:
 			if owner.state!="attack" or owner.move.get("kind","")!="robot_super" or owner.attacks!=p.attack_serial:
 				p.dead=true
 				continue
+		if p.kind=="projectile" and p.move.get("homing",false) and p.age<42:
+			var target:Dictionary=fighters[1-p.owner]
+			var desired=(Vector2(target.x,target.y-112.0)-Vector2(p.x,p.y)).normalized()*9.0
+			p.vel=p.vel.lerp(desired,0.055)
 		p.life -= 1
 		p.age += 1
 		if p.age > p.move.setup_time:

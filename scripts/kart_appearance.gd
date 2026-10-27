@@ -1,6 +1,6 @@
 extends RefCounted
 ## Supplied kart turnarounds, in MoveDB.IDS order. Skin 1 belongs to Diogo.
-const REFERENCES = ["arthur","vitorbem","maria","diogo","mirkos","felipe","murilo","gabriel","fabiano","vitormal","lorenzo","leonardo","cristian","fernando"]
+const REFERENCES = ["arthur","vitorbem","maria","diogo","mirkos","felipe","murilo","gabriel","fabiano","vitormal","lorenzo","leonardo","cristian","fernando","clarissa"]
 const LOOKS = [
 	{"kart_color":"202127","accent":"e7e8e5","rim":"bdc0c5","shirt":"181a1e","pants":"202126","shoes":"dedfdc","hair":"442d26","style":"hoodie","hair_style":"curls","detail":"straps"},
 	{"kart_color":"123c70","accent":"078cda","rim":"168acd","shirt":"1c304b","pants":"87a8c0","shoes":"e0dfd9","hair":"493026","style":"puffer","hair_style":"curls","inner":"60656b"},
@@ -15,7 +15,8 @@ const LOOKS = [
 	{"kart_color":"0759d4","accent":"e9e9e3","rim":"196ee2","shirt":"1c2027","pants":"20242b","shoes":"161e24","hair":"51392b","style":"tracksuit","hair_style":"buzz","glasses":"dark","beard":"full","detail":"double_stripe","inner":"16446b","skin":"c28f6b","width":1.08},
 	{"kart_color":"304b86","accent":"e1e5e6","rim":"6d85bf","shirt":"246447","pants":"335582","shoes":"bfc3c3","hair":"7f8384","style":"sweater","hair_style":"bald","glasses":"clear","beard":"gray","skin":"d6a17b","width":1.18},
 	{"kart_color":"075ec9","accent":"e8e8e2","rim":"1978df","shirt":"252629","pants":"d2cab8","shoes":"23272d","hair":"241d20","style":"puffer","hair_style":"fade","glasses":"clear","beard":"full","skin":"c99572"},
-	{"kart_color":"20252e","accent":"2f80db","rim":"4277b5","shirt":"a1a1a0","pants":"294b70","shoes":"20272d","hair":"29201d","style":"hoodie","hair_style":"swept","beard":"stubble","detail":"cords","skin":"d3a07c"}
+	{"kart_color":"20252e","accent":"2f80db","rim":"4277b5","shirt":"a1a1a0","pants":"294b70","shoes":"20272d","hair":"29201d","style":"hoodie","hair_style":"swept","beard":"stubble","detail":"cords","skin":"d3a07c"},
+	{"kart_color":"f29bce","accent":"fff2ee","rim":"de64a8","shirt":"eaa4cf","pants":"202126","shoes":"191d22","hair":"bd884b","style":"open_hoodie","inner":"eee9e0","hair_style":"long","width":0.87}
 ]
 
 static func get_appearance(character: int, skin: int = 0) -> Dictionary:

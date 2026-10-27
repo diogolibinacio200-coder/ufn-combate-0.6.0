@@ -9,15 +9,15 @@ const HUD = preload("res://scripts/kart_hud.gd")
 const Driver = preload("res://scripts/kart_driver.gd")
 const UrbanTrack = preload("res://scripts/kart_ufn_track.gd")
 const AllyArt = preload("res://scripts/ally_art.gd")
-const IDS: Array[String] = ["arthur", "vitorbem", "maria", "diogo", "mirkos", "felipe", "murilo", "gabriel", "fabiano", "vitormal", "lorenzo", "leonardo", "cristian", "fernando"]
-const NAMES: Array[String] = ["ARTHUR", "VITOR DO BEM", "MARIA", "DIOGO", "MIRKOS", "FELIPE", "MURILO", "GABRIEL", "FABIANO", "VITOR DO MAL", "LORENZO", "LEONARDO", "CRISTIAN", "FERNANDO"]
-const COLORS: Array[Color] = [Color("55b8ff"), Color("79deb5"), Color("d6adff"), Color("2187ff"), Color("ffcd66"), Color("f498ca"), Color("58a8e9"), Color("fd9268"), Color("bc879c"), Color("a2ade9"),Color("42ddff"),Color("59b878"),Color("e79769"),Color("bba17d")]
+const IDS: Array[String] = ["arthur", "vitorbem", "maria", "diogo", "mirkos", "felipe", "murilo", "gabriel", "fabiano", "vitormal", "lorenzo", "leonardo", "cristian", "fernando", "clarissa"]
+const NAMES: Array[String] = ["ARTHUR", "VITOR DO BEM", "MARIA", "DIOGO", "MIRKOS", "FELIPE", "MURILO", "GABRIEL", "FABIANO", "VITOR DO MAL", "LORENZO", "LEONARDO", "CRISTIAN", "FERNANDO", "CLARISSA"]
+const COLORS: Array[Color] = [Color("55b8ff"), Color("79deb5"), Color("d6adff"), Color("2187ff"), Color("ffcd66"), Color("f498ca"), Color("58a8e9"), Color("fd9268"), Color("bc879c"), Color("a2ade9"),Color("42ddff"),Color("59b878"),Color("e79769"),Color("bba17d"),Color("f29bce")]
 const ITEM_NAMES: Array[String] = ["", "PULSO UFN", "TURBO", "ESCUDO", "CHOQUE", "ÓLEO", "CAPIVARA", "PODER EXCLUSIVO"]
 const ROAD_HALF: float = 7.7
 const GATES: int = 20
 const LAPS: int = 3
 
-const SIGNATURES = ["HALTER", "GRITO", "CAPIVARA", "RAÍZES", "DRONE", "BOLA COM CURVA", "HANDEBOL", "TURBO DE MOTOR", "PARÁBOLA", "ALIADA", "PACOTE DE DADOS", "ESPUMA", "TIJOLOS", "PATADA LATERAL"]
+const SIGNATURES = ["HALTER", "GRITO", "CAPIVARA", "RAÍZES", "DRONE", "BOLA COM CURVA", "HANDEBOL", "TURBO DE MOTOR", "PARÁBOLA", "ALIADA", "PACOTE DE DADOS", "ESPUMA", "TIJOLOS", "PATADA LATERAL", "SAQUE DE BEACH TENNIS"]
 const TRACK_NAMES = ["CIRCUITO DO CAMPUS","VOLTA DA VILA BELGA","CENTRO DE SANTA MARIA","DESAFIO UNIVERSITÁRIO","UFN / ANDRADAS"]
 const BARRIER_OFFSET = ROAD_HALF + 2.65
 const KART_RADIUS = .95
@@ -543,7 +543,7 @@ func _build_scenery() -> void:
 func _choice_index(value: Variant) -> int:
 	if value is String:
 		return maxi(0,IDS.find(value))
-	return posmod(int(value),IDS.size())
+	return 14 if int(value)==16 else posmod(int(value),IDS.size())
 
 func _spawn_racers(choices: Array, skins: Array) -> void:
 	var selected_ids: Array = []
@@ -1326,11 +1326,13 @@ func signature_item(r: Dictionary, direction: Vector2) -> void:
 			for side in [-1,1]:ball(node,Vector3(side*.68,0,0),.4,Color("496075"))
 		elif id==2:
 			ball(node,Vector3.ZERO,.55,Color("a98558"),Vector3(.8,.7,1.4));ball(node,Vector3(0,.3,-.6),.35,Color("bf9a70"))
+		elif id==14:
+			ball(node,Vector3.ZERO,.45,Color("ffce50"));ball(node,Vector3(.1,.1,0),.35,Color("ed579c"))
 		elif id==10:cube(node,Vector3.ZERO,Vector3(.85,.65,.65),Color("3ce6ed"),true)
 		elif id==8:
 			var poly=cube(node,Vector3.ZERO,Vector3(.7,.7,.7),Color("c79add"));poly.rotation=Vector3(.6,.4,.7)
 		else:ball(node,Vector3.ZERO,.45,Color.WHITE if id==5 else COLORS[id])
-		projectiles.append({"owner":r.id,"pos":Vector2(r.pos)+direction*2.5,"dir":direction,"speed":43.0 if id==2 else 49.0,"life":4.0,"node":node,"homing":id in [2,4,10],"curve":id==5,"bounce":2.0 if id in [0,6,8] else 0.0,"stun":1.15})
+		projectiles.append({"owner":r.id,"pos":Vector2(r.pos)+direction*2.5,"dir":direction,"speed":43.0 if id==2 else 49.0,"life":4.0,"node":node,"homing":id in [2,4,10,14],"curve":id==5,"bounce":2.0 if id in [0,6,8] else 0.0,"stun":1.15})
 
 # Static campus meshes share material batches; racing vehicles remain independent.
 func _batch_static_geometry() -> void:

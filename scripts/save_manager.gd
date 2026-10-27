@@ -129,7 +129,7 @@ func _valid_tower(tower: Dictionary) -> bool:
 		var value=tower.get(field)
 		if not (value is int or value is float):return false
 		if not is_finite(float(value)) or float(value)!=float(int(value)):return false
-	if int(tower.character) not in range(14) or int(tower.step) not in range(order.size()):return false
+	if int(tower.character) not in preload("res://scripts/move_db.gd").PLAYABLE_IDS or int(tower.step) not in range(order.size()):return false
 	var seen=[]
 	for i in order.size():
 		var id=order[i]
@@ -137,7 +137,7 @@ func _valid_tower(tower: Dictionary) -> bool:
 		if not is_finite(float(id)) or float(id)!=float(int(id)):return false
 		if i>=order.size()-2:
 			if int(id)!=(14 if i==order.size()-2 else 15):return false
-		elif int(id) not in range(14) or int(id)==int(tower.character):return false
+		elif int(id) not in preload("res://scripts/move_db.gd").PLAYABLE_IDS or int(id)==int(tower.character):return false
 		if int(id) in seen:return false
 		seen.append(int(id))
 	return true

@@ -81,7 +81,7 @@ func _decide(combat, player: int, level: int) -> Dictionary:
 		action.heavy = true
 		return action
 	if distance > 350:
-		if f.id in [2,4,5,6,8,9,10,12] and f.meter >= 20 and roll < 0.52:
+		if f.id in [2,4,5,6,8,9,10,12,16] and f.meter >= 20 and roll < 0.52:
 			action.special_slot = 0
 			action.attack = true
 		else:

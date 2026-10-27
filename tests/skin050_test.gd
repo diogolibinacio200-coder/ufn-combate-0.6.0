@@ -60,7 +60,7 @@ func run() -> void:
 	root.add_child(app)
 	app.set_process(false)
 	app.set_physics_process(false)
-	check(app.PLAYABLE==14 and app.combat.move_db.IDS.count("diogo")==1 and not app.combat.move_db.IDS.has("diogo_alt"),"Selection has one Diogo slot among fourteen playable characters")
+	check(app.PLAYABLE==15 and app.combat.move_db.IDS.count("diogo")==1 and not app.combat.move_db.IDS.has("diogo_alt"),"Selection has one Diogo slot among fifteen playable characters")
 	app.begin_mode("versus")
 	app.cursors=[3,0]
 	app.chosen=[3,0]
@@ -104,7 +104,7 @@ func run() -> void:
 	var racer:Dictionary=app.kart.racers[0]
 	var driver=racer.node.get_node("Driver")
 	check(racer.character==3 and racer.skin==1 and driver.get_meta("character")==3 and driver.get_meta("skin")==1,"Kart driver uses same Diogo identity and alternative appearance")
-	check(app.kart.IDS.count("diogo")==1 and app.kart.IDS.size()==14,"Kart roster also has no duplicate Diogo character")
+	check(app.kart.IDS.count("diogo")==1 and app.kart.IDS.size()==15,"Kart roster also has no duplicate Diogo character")
 	app.kart.stop()
 	await app.sound.shutdown()
 	app.queue_free()

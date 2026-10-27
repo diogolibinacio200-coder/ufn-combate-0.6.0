@@ -44,7 +44,7 @@ func run() -> void:
  check(input.get_binding(0,"attack") == KEY_J and input.get_binding(1,"attack") == KEY_KP_1,"Teclado 2 jogadores tem mapeamento correto")
  check(input.set_binding(1,"attack",KEY_F),"Remapeamento para teclado sem numérico")
  check(input.get_binding(1,"attack") == KEY_F,"Remapeamento usado no input")
- check(c.move_db.ROSTER.size() == 16 and c.move_db.PLAYABLE==14,"Elenco tem 14 jogáveis e dois chefes")
+ check(c.move_db.ROSTER.size() == 17 and c.move_db.PLAYABLE==15,"Elenco tem 15 jogáveis e dois chefes")
  for id in 16:
   for slot in 3:
    c = fresh(id,(id+1)%16)

@@ -22,7 +22,7 @@ func run():
 		check(region.size.x>Art.ANCHORS[frame].x and region.size.y>Art.ANCHORS[frame].y,"Foot anchor remains inside pose: "+frame)
 	var game=Kart.new();root.add_child(game);game.setup(null);game.race_mode="time_trial"
 	game.start([9],[0],4,1);game.set_process(false);game.set_physics_process(false)
-	check(game.IDS.size()==14 and not game.IDS.has(Art.ID),"Ally adds no selectable character")
+	check(game.IDS.size()==15 and not game.IDS.has(Art.ID),"Ally adds no selectable character")
 	var racer=game.racers[0]
 	var effect=racer.node.get_node("SignatureDisplay")
 	check(effect.has_node("BlondeAlly") and not effect.visible,"Kart summon starts inactive")

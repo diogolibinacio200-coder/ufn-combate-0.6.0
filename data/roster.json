@@ -94,5 +94,11 @@
 		"name": "KELVIN",
 		"super": "LINHA PERFEITA",
 		"title": "CHEFE • SKATE"
+	},
+	{
+		"id": 16,
+		"name": "CLARISSA",
+		"super": "RAINHA DO BEACH TENNIS",
+		"title": "BEACH TENNIS • PRECISÃO"
 	}
 ]

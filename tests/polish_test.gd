@@ -85,7 +85,7 @@ func run():
 	check(c.fighters[0].combo==3,"three light taps connect a three-hit combo")
 	check(c.fighters[0].move.get("chain_stage",0)==2,"light combo finishes and cannot loop itself")
 	# Each playable character has equal base movement, health and jump stats.
-	for id in c.move_db.PLAYABLE:
+	for id in c.move_db.PLAYABLE_IDS:
 		check(c.move_db.character(id).base==c.move_db.character(0).base,"equal base attributes for playable %d"%id)
 	var app=App.new();app.profile=Profile.new("user://polish_test_"+str(OS.get_process_id())+".json");root.add_child(app)
 	app.set_process(false);app.set_physics_process(false)

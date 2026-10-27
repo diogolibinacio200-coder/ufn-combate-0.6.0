@@ -26,13 +26,15 @@ const ROSTER = [
 	["CRISTIAN","ARQUITETURA • CONSTRUÇÃO","f6ad75","CASA PRONTA","Tudo começa com uma boa fundação.","Cristian ergue um pavilhão para celebrar o campeonato. A UFN ganha espaço para os próximos projetos."],
 	["FERNANDO","MARIONETE • URSO","cf9a6d","GRANDE ESPETÁCULO","Atenção ao meu comando.","Fernando e seu urso dividem os aplausos. A apresentação final vira tradição do campus."],
 	["ANDRÉ CSTH","CHEFE • GASES CARTUNESCOS","bee17c","APOCALIPSE GASOSO","É melhor abrir as janelas.",""],
-	["KELVIN","CHEFE • SKATE","d5a1ff","LINHA PERFEITA","Essa pista é minha.",""]
+	["KELVIN","CHEFE • SKATE","d5a1ff","LINHA PERFEITA","Essa pista é minha.",""],
+	["CLARISSA","BEACH TENNIS • PRECISÃO","f29bce","RAINHA DO BEACH TENNIS","O próximo ponto é meu.","Clarissa conquista a quadra e reúne a turma para uma partida de beach tennis. O troféu é só o começo."]
 
 ]
-const PLAYABLE = 14
-const IDS = ["arthur","vitorbem","maria","diogo","mirkos","felipe","murilo","gabriel","fabiano","vitormal","lorenzo","leonardo","cristian","fernando","andre","kelvin"]
-const SPEEDS = [4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,3.3,5.2]
-const VISUALS = ["dumbbell","rage","capybara","roots","exosuit","football","handball","car","equation","allies","network","foam","brick","bear","gas","skate"]
+const PLAYABLE_IDS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,16]
+const PLAYABLE = 15
+const IDS = ["arthur","vitorbem","maria","diogo","mirkos","felipe","murilo","gabriel","fabiano","vitormal","lorenzo","leonardo","cristian","fernando","andre","kelvin","clarissa"]
+const SPEEDS = [4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,4.2,3.3,5.2,4.2]
+const VISUALS = ["dumbbell","rage","capybara","roots","exosuit","football","handball","car","equation","allies","network","foam","brick","bear","gas","skate","beach_ball"]
 
 func move(n: String, kind: String = "strike", damage: float = 60.0, start: int = 10, active: int = 4, recovery: int = 22, reach: float = 135.0, cost: float = 20.0, extras: Dictionary = {}) -> Dictionary:
 	var m := {"name":n,"kind":kind,"damage":damage,"startup":start,"active":active,"recovery":recovery,"range":reach,"height":80.0,"offset_y":-116.0,"guard_damage":18.0,"cost":cost,"level":"mid","hitstun":23,"blockstun":13,"push":5.0,"launch":0.0,"speed":0.0,"duration":90,"cancel":false,"family":"special","chip":0.06,"invuln":0,"freeze":0,"pull":0.0,"chargeable":false,"visual":"impact","body_pose":"punch","gravity":0.0,"vy":0.0,"bounces":0,"pulse_count":1,"pulse_interval":24,"root":0,"setup_time":0}
@@ -68,9 +70,14 @@ func character(id: int) -> Dictionary:
 	var r: Array = ROSTER[index]
 	var base = BASE.duplicate()
 	base.walk_speed = SPEEDS[index]
-	return {"id":index,"name":r[0],"title":r[1],"color":r[2],"super":r[3],"quote":r[4],"ending":r[5],"playable":index<PLAYABLE,"difficulty":[2,1,2,2,3,2,2,2,3,2,3,2,3,4,4,4][index],"specials":specials(index),"defense":defense(index),"base":base,"signature":["SOCO RÁPIDO","SOCO FORTE",specials(index)[0].name]}
+	return {"id":index,"name":r[0],"title":r[1],"color":r[2],"super":r[3],"quote":r[4],"ending":r[5],"playable":index in PLAYABLE_IDS,"difficulty":[2,1,2,2,3,2,2,2,3,2,3,2,3,4,4,4,2][index],"specials":specials(index),"defense":defense(index),"base":base,"signature":["SOCO RÁPIDO","SOCO FORTE",specials(index)[0].name]}
 
 func specials(id: int) -> Array:
+	if id==16:
+		return [
+			move("BOLA TELEGUIADA","projectile",68,20,1,28,30,18,{"speed":9.0,"duration":65,"visual":"beach_ball","body_pose":"projectile","homing":true}),
+			move("CHUVA DE BOLINHAS","beach_rain",28,26,1,35,26,24,{"duration":65,"visual":"beach_ball","body_pose":"throw","gravity":0.16}),
+			move("REDE DE BEACH TENNIS","barrier",0,21,1,32,42,22,{"duration":120,"visual":"beach_net","body_pose":"block"})]
 	match id:
 		0: return [move("ROSCA EXPLOSIVA","uppercut",96,12,8,28,136,18,{"speed":4.0,"height":195.0,"launch":-12.0,"visual":"dumbbell","body_pose":"uppercut"}),move("PESO MORTO","wave",98,23,7,34,235,20,{"level":"low","height":63.0,"offset_y":-32.0,"guard_damage":30.0,"visual":"barbell","body_pose":"heavy"}),move("PEGADA DE FERRO","throw",145,10,4,35,99,20,{"family":"throw","visual":"dumbbell","body_pose":"grab"})]
 		1: return [move("RECLAMAÇÃO EXPLOSIVA","burst",68,13,5,23,151,15,{"push":13.0,"visual":"rage","body_pose":"projectile"}),move("PERDEU A PACIÊNCIA","dash",84,11,7,29,144,18,{"speed":7.0,"visual":"rage","body_pose":"punch"}),move("RESPIRA NADA","buff",0,19,1,29,0,10,{"duration":300,"visual":"rage","body_pose":"charge"})]
@@ -95,6 +102,8 @@ func defense(id: int) -> Dictionary:
 	return move("REVERSÃO", "counter",72,3,12,30,150,35,{"family":"defense","visual":VISUALS[clampi(id,0,ROSTER.size()-1)],"body_pose":"block"})
 
 func offensive_special(id: int) -> Dictionary:
+	if id==16:
+		return move("RAQUETADA EXPLOSIVA","wave",96,17,7,32,205,26,{"visual":"beach_smash","body_pose":"heavy","push":12.0,"launch":-6.0,"height":150.0,"guard_damage":24.0})
 	# Universal front/down + heavy, with mechanics from each character's theme.
 	var moves = [
 		["LEVANTAMENTO OLÍMPICO","uppercut","barbell","uppercut",132,4.0,-12.0],
@@ -131,6 +140,8 @@ func chain_normal(stage: int) -> Dictionary:
 		"chain_stage":stage})
 
 func super_move(id: int) -> Dictionary:
+	if id==16:
+		return move(ROSTER[16][3],"projectile",280,27,1,44,42,100,{"family":"super","speed":13.0,"duration":65,"visual":"beach_ball","body_pose":"projectile","guard_damage":36.0,"chip":0.04,"hitstun":36})
 	if id==1:
 		return move(ROSTER[1][3],"rush_red",280,16,112,36,132,100,{"family":"super","guard_damage":36.0,"chip":0.04,"hitstun":36,"height":185.0,"offset_y":-112.0,"visual":"rage","body_pose":"run","speed":11.0,"push":14.0})
 	if id==9:
